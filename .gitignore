@@ -1,0 +1,8 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Old slides
+slides_old/
+old_slides/
