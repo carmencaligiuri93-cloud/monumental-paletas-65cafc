@@ -1,63 +1,1170 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>DEVELOP — AI-ADOPT case</title>
-<style>
-:root{
-  --bg:#050608; --panel:#0d1117; --ink:#f7f7f7; --muted:#aeb7c2; --cyan:#9ee7ef; --red:#ff3655; --green:#b8ff72; --line:rgba(158,231,239,.34);
-  --shadow:0 0 45px rgba(126,231,255,.17), 0 0 110px rgba(255,54,85,.09);
-}
-*{box-sizing:border-box} html,body{margin:0;height:100%;overflow:hidden;background:var(--bg);color:var(--ink);font-family:Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif}
-body:before{content:"";position:fixed;inset:-20%;background:radial-gradient(circle at 10% 20%,rgba(158,231,239,.16),transparent 26%),radial-gradient(circle at 85% 70%,rgba(255,54,85,.13),transparent 24%),linear-gradient(120deg,#050608,#080a0e 45%,#030305);z-index:-4}
-#trail{position:fixed;inset:0;width:100vw;height:100vh;z-index:-2;pointer-events:none;filter:drop-shadow(0 0 12px rgba(158,231,239,.8)) drop-shadow(0 0 24px rgba(255,54,85,.24))}
-.deck{height:100vh;width:100vw;perspective:1200px}.slide{position:absolute;inset:0;padding:5.5vh 6.5vw;display:grid;grid-template-rows:auto 1fr auto;opacity:0;transform:translate3d(8vw,0,0) scale(.96) rotateY(-8deg);transition:opacity .75s ease, transform .9s cubic-bezier(.2,.85,.2,1), filter .75s ease;filter:blur(12px);pointer-events:none}.slide.active{opacity:1;transform:translate3d(0,0,0) scale(1) rotateY(0);filter:blur(0);pointer-events:auto}.slide.prev{opacity:0;transform:translate3d(-7vw,0,0) scale(.98) rotateY(8deg)}
-.kicker{letter-spacing:.22em;text-transform:uppercase;color:var(--cyan);font-weight:800;font-size:clamp(.72rem,1.2vw,1rem)}h1{font-size:clamp(3rem,8vw,8.2rem);line-height:.88;margin:.18em 0;text-transform:uppercase;letter-spacing:-.06em}h2{font-size:clamp(2.2rem,5.8vw,5.9rem);line-height:.95;margin:.1em 0 .35em;letter-spacing:-.055em}h3{font-size:clamp(1.2rem,2.3vw,2.4rem);margin:.1em 0 .5em}.accent{color:var(--red)}.cyan{color:var(--cyan)}.green{color:var(--green)}.italic{font-style:italic}.small{font-size:clamp(.8rem,1.05vw,1.05rem);color:var(--muted)}
-.title-pill{display:inline-block;border:1.5px solid var(--line);border-radius:999px;padding:.45rem 1.25rem;background:rgba(8,11,17,.64);box-shadow:var(--shadow);backdrop-filter:blur(10px)}
-.content{align-self:center}.grid{display:grid;gap:1.2rem}.cols2{grid-template-columns:1fr 1fr}.cols3{grid-template-columns:repeat(3,1fr)}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1rem}.card{background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.035));border:1px solid rgba(255,255,255,.12);border-radius:26px;padding:1.25rem;box-shadow:var(--shadow);backdrop-filter:blur(12px)}.card h3{margin:0 0 .55rem}.card p,.card li{color:#d8dee7;font-size:clamp(.98rem,1.35vw,1.35rem);line-height:1.32}.card ul{margin:.5rem 0 0;padding-left:1.2rem}.huge{font-size:clamp(1.3rem,2.25vw,2.35rem);line-height:1.24}.quote{font-size:clamp(1.1rem,2vw,2rem);line-height:1.25;color:#ecf5f7}.ask{display:inline-grid;place-items:center;width:3.1rem;height:3.1rem;border-radius:50%;background:var(--red);color:white;font-size:.8rem;font-weight:900;box-shadow:0 0 26px rgba(255,54,85,.5)}
-.timeline{position:relative;display:grid;gap:1rem;max-width:1000px}.timeline:before{content:"";position:absolute;left:1rem;top:1rem;bottom:1rem;width:2px;background:linear-gradient(var(--cyan),var(--red));box-shadow:0 0 22px var(--cyan)}.step{position:relative;margin-left:2.7rem;padding:1rem 1.1rem;border:1px solid rgba(255,255,255,.12);border-radius:22px;background:rgba(255,255,255,.055)}.step:before{content:"";position:absolute;left:-2.1rem;top:1.2rem;width:.9rem;height:.9rem;border-radius:50%;background:var(--cyan);box-shadow:0 0 22px var(--cyan)}
-.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:.8rem;align-items:center}.flow .node{min-height:120px;display:grid;place-items:center;text-align:center;border:1px solid rgba(158,231,239,.35);border-radius:26px;background:rgba(158,231,239,.08);padding:1rem}.arrow{height:2px;background:linear-gradient(90deg,var(--cyan),var(--red));box-shadow:0 0 18px var(--cyan)}
-.proc-diagram{display:grid;gap:.4rem;max-width:1200px;margin:0 auto;width:100%}.proc-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.05fr);gap:.5rem 1.1rem;align-items:center;justify-items:center;width:100%}.proc-col-title{font-size:clamp(.7rem,.95vw,.9rem);letter-spacing:.18em;text-transform:uppercase;color:var(--cyan);align-self:end}.proc-node{display:grid;place-items:center;text-align:center;border:1px solid rgba(158,231,239,.35);border-radius:22px;background:rgba(158,231,239,.08);padding:.8rem 1.05rem;min-height:78px;width:100%;font-size:clamp(.95rem,1.25vw,1.2rem)}.proc-arrow-v{font-size:1.6rem;color:var(--cyan);text-shadow:0 0 12px var(--cyan);line-height:1}.proc-note{padding:.7rem .9rem;font-size:clamp(.85rem,1.05vw,1rem);line-height:1.3}.proc-side-stack{display:grid;gap:.5rem;width:100%;align-self:center}.proc-merge{position:relative;width:100%;height:54px;justify-self:stretch}.proc-merge>span{position:absolute;background:var(--cyan);box-shadow:0 0 10px var(--cyan);display:block}.proc-merge>.ml{left:calc(25% - 1px);top:0;width:2px;height:50%}.proc-merge>.mr{left:calc(75% - 1px);top:0;width:2px;height:50%}.proc-merge>.mh{left:25%;top:calc(50% - 1px);height:2px;width:50%}.proc-merge>.mc{left:calc(50% - 1px);top:50%;width:2px;height:50%}.proc-node-merge{background:rgba(255,54,85,.08);border-color:rgba(255,54,85,.4);justify-self:center;max-width:560px}.proc-node-final{background:rgba(184,255,114,.12);border-color:rgba(184,255,114,.45);justify-self:center;max-width:520px}.proc-note-side{max-width:380px;justify-self:start;align-self:center}
-@media(max-width:850px){.proc-grid{grid-template-columns:1fr}.proc-grid>*{grid-column:1/-1!important;grid-row:auto!important;justify-self:center!important}.proc-merge{display:none}}
-.symbol{font-size:clamp(4rem,12vw,11rem);line-height:1;opacity:.9;filter:drop-shadow(0 0 30px rgba(158,231,239,.22))}.ghost{position:absolute;right:5vw;bottom:5vh;font-size:22vw;opacity:.045;z-index:-1}.footer{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:.88rem}.progress{position:fixed;left:0;bottom:0;height:4px;background:linear-gradient(90deg,var(--cyan),var(--red));width:0;z-index:20;box-shadow:0 0 20px var(--cyan)}.navhint{position:fixed;right:1rem;top:1rem;z-index:30;color:var(--muted);font-size:.8rem}.diagram{position:relative;min-height:55vh}.bubble{position:absolute;border:1px solid rgba(158,231,239,.4);background:rgba(158,231,239,.08);border-radius:999px;padding:1rem 1.4rem;text-align:center;box-shadow:var(--shadow)}.b1{left:3%;top:12%}.b2{right:8%;top:8%}.b3{left:28%;bottom:14%}.b4{right:18%;bottom:10%}.thin-line{position:absolute;height:2px;background:linear-gradient(90deg,var(--cyan),transparent);transform-origin:left;box-shadow:0 0 14px var(--cyan)}.stats{display:grid;grid-template-columns:1fr auto 1fr;gap:2rem;align-items:center}.funnel{font-size:13rem;color:var(--red);text-shadow:0 0 40px rgba(255,54,85,.55);text-align:center}.questions{columns:2;column-gap:2rem}.questions .q{break-inside:avoid;margin:0 0 1rem;padding:1rem;border-left:4px solid var(--red);background:rgba(255,255,255,.05);border-radius:16px}.q strong{color:var(--red)}
-.reg-diagram{position:relative;width:100%;max-width:1100px;margin:0 auto;padding:.5rem 0 0}.reg-tree{position:relative;display:grid;grid-template-columns:1fr auto 1fr;gap:.6rem 1.2rem;align-items:center;margin:.4rem 0 1rem;padding-top:1.1rem}.reg-tree:before{content:"";position:absolute;left:50%;top:-1rem;transform:translateX(-50%);width:2px;height:1.2rem;background:var(--cyan);box-shadow:0 0 14px var(--cyan)}.reg-tree-header{grid-column:1/-1;display:grid;grid-template-columns:1fr auto 1fr;gap:.6rem 1.2rem;align-items:end;font-size:clamp(.7rem,.95vw,.88rem);letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:.2rem}.reg-tree-header .h-chosen{color:var(--green);text-align:right;padding-right:.6rem}.reg-tree-header .h-alt{color:var(--muted);text-align:left;padding-left:.6rem;opacity:.75}.reg-chosen-box{justify-self:end;padding:.55rem 1.1rem;border-radius:999px;background:rgba(158,231,239,.18);border:1px solid rgba(158,231,239,.55);box-shadow:0 0 22px rgba(158,231,239,.18);font-size:clamp(.95rem,1.25vw,1.15rem);color:#eaf6f7;display:inline-flex;align-items:center;gap:.55rem;min-width:11rem;justify-content:center}.reg-chosen-box.is-current{background:rgba(184,255,114,.14);border-color:rgba(184,255,114,.55);box-shadow:0 0 22px rgba(184,255,114,.22);color:#f4ffe6;font-weight:700}.reg-chosen-box .check{color:var(--green);font-weight:900}.reg-divider{width:2px;height:1.4rem;background:linear-gradient(var(--cyan),var(--red));opacity:.55;border-radius:2px}.reg-alt-box{justify-self:start;padding:.5rem 1rem;border-radius:999px;background:rgba(255,255,255,.04);border:1px dashed rgba(255,255,255,.18);font-size:clamp(.92rem,1.2vw,1.1rem);color:var(--muted);opacity:.7;min-width:11rem;text-align:center}.reg-spine{position:absolute;left:calc(50% - 1px);top:1.6rem;bottom:-1.5rem;width:2px;background:linear-gradient(var(--cyan),rgba(158,231,239,.0));opacity:0;pointer-events:none}.reg-chosen-rail{position:absolute;width:2px;background:var(--cyan);box-shadow:0 0 14px var(--cyan);opacity:.5}.reg-laws-intro{display:flex;align-items:center;gap:.7rem;margin:.4rem 0 .55rem;color:#cfd6df;font-size:clamp(.85rem,1.1vw,1rem);letter-spacing:.04em}.reg-laws-intro .arr{display:inline-block;color:var(--cyan);text-shadow:0 0 10px var(--cyan)}.reg-laws{position:relative;list-style:none;margin:0;padding:0 0 0 .4rem;font-size:clamp(.92rem,1.25vw,1.15rem);line-height:1.5;color:#e6ecf2}.reg-laws li{position:relative;padding-left:1.4rem;margin:.18rem 0}.reg-laws li:before{content:"▸";position:absolute;left:0;color:var(--cyan);text-shadow:0 0 8px var(--cyan)}.reg-laws li.no-arrow{padding-left:1.4rem}.reg-laws li.no-arrow:before{content:""}
-@media(max-width:850px){.cols2,.cols3,.flow,.stats{grid-template-columns:1fr}.arrow{display:none}.slide{padding:7vh 5vw}.questions{columns:1}.ghost{display:none}.reg-tree{grid-template-columns:1fr;gap:.4rem}.reg-tree-header{display:none}.reg-chosen-box,.reg-alt-box{justify-self:stretch;text-align:center;min-width:0}.reg-divider{display:none}.reg-laws{margin-top:1rem;padding-left:1rem}}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DEVELOP — AI-ADOPT case</title>
+  <style>
+    :root {
+      --bg: #050608;
+      --panel: #0d1117;
+      --ink: #f7f7f7;
+      --muted: #aeb7c2;
+      --cyan: #9ee7ef;
+      --red: #ff3655;
+      --green: #b8ff72;
+      --line: rgba(158, 231, 239, .34);
+      --shadow: 0 0 45px rgba(126, 231, 255, .17), 0 0 110px rgba(255, 54, 85, .09);
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif
+    }
+
+    body:before {
+      content: "";
+      position: fixed;
+      inset: -20%;
+      background: radial-gradient(circle at 10% 20%, rgba(158, 231, 239, .16), transparent 26%), radial-gradient(circle at 85% 70%, rgba(255, 54, 85, .13), transparent 24%), linear-gradient(120deg, #050608, #080a0e 45%, #030305);
+      z-index: -4
+    }
+
+    #trail {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -2;
+      pointer-events: none;
+      filter: drop-shadow(0 0 12px rgba(158, 231, 239, .8)) drop-shadow(0 0 24px rgba(255, 54, 85, .24))
+    }
+
+    .deck {
+      height: 100vh;
+      width: 100vw;
+      perspective: 1200px
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      padding: 5.5vh 6.5vw;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      opacity: 0;
+      transform: translate3d(8vw, 0, 0) scale(.96) rotateY(-8deg);
+      transition: opacity .75s ease, transform .9s cubic-bezier(.2, .85, .2, 1), filter .75s ease;
+      filter: blur(12px);
+      pointer-events: none
+    }
+
+    .slide.active {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1) rotateY(0);
+      filter: blur(0);
+      pointer-events: auto
+    }
+
+    .slide.prev {
+      opacity: 0;
+      transform: translate3d(-7vw, 0, 0) scale(.98) rotateY(8deg)
+    }
+
+    .kicker {
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      font-weight: 800;
+      font-size: clamp(.72rem, 1.2vw, 1rem)
+    }
+
+    h1 {
+      font-size: clamp(3rem, 8vw, 8.2rem);
+      line-height: .88;
+      margin: .18em 0;
+      text-transform: uppercase;
+      letter-spacing: -.06em
+    }
+
+    h2 {
+      font-size: clamp(2.2rem, 5.8vw, 5.9rem);
+      line-height: .95;
+      margin: .1em 0 .35em;
+      letter-spacing: -.055em
+    }
+
+    h3 {
+      font-size: clamp(1.2rem, 2.3vw, 2.4rem);
+      margin: .1em 0 .5em
+    }
+
+    .accent {
+      color: var(--red)
+    }
+
+    .cyan {
+      color: var(--cyan)
+    }
+
+    .green {
+      color: var(--green)
+    }
+
+    .italic {
+      font-style: italic
+    }
+
+    .small {
+      font-size: clamp(.8rem, 1.05vw, 1.05rem);
+      color: var(--muted)
+    }
+
+    .title-pill {
+      display: inline-block;
+      border: 1.5px solid var(--line);
+      border-radius: 999px;
+      padding: .45rem 1.25rem;
+      background: rgba(8, 11, 17, .64);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px)
+    }
+
+    .content {
+      align-self: center
+    }
+
+    .grid {
+      display: grid;
+      gap: 1.2rem
+    }
+
+    .cols2 {
+      grid-template-columns: 1fr 1fr
+    }
+
+    .cols3 {
+      grid-template-columns: repeat(3, 1fr)
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 1rem
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, .09), rgba(255, 255, 255, .035));
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-radius: 26px;
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px)
+    }
+
+    .card h3 {
+      margin: 0 0 .55rem
+    }
+
+    .card p,
+    .card li {
+      color: #d8dee7;
+      font-size: clamp(.98rem, 1.35vw, 1.35rem);
+      line-height: 1.32
+    }
+
+    .card ul {
+      margin: .5rem 0 0;
+      padding-left: 1.2rem
+    }
+
+    .huge {
+      font-size: clamp(1.3rem, 2.25vw, 2.35rem);
+      line-height: 1.24
+    }
+
+    .quote {
+      font-size: clamp(1.1rem, 2vw, 2rem);
+      line-height: 1.25;
+      color: #ecf5f7
+    }
+
+    .ask {
+      display: inline-grid;
+      place-items: center;
+      width: 3.1rem;
+      height: 3.1rem;
+      border-radius: 50%;
+      background: var(--red);
+      color: white;
+      font-size: .8rem;
+      font-weight: 900;
+      box-shadow: 0 0 26px rgba(255, 54, 85, .5)
+    }
+
+    .timeline {
+      position: relative;
+      display: grid;
+      gap: 1rem;
+      max-width: 1000px
+    }
+
+    .timeline:before {
+      content: "";
+      position: absolute;
+      left: 1rem;
+      top: 1rem;
+      bottom: 1rem;
+      width: 2px;
+      background: linear-gradient(var(--cyan), var(--red));
+      box-shadow: 0 0 22px var(--cyan)
+    }
+
+    .step {
+      position: relative;
+      margin-left: 2.7rem;
+      padding: 1rem 1.1rem;
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, .055)
+    }
+
+    .step:before {
+      content: "";
+      position: absolute;
+      left: -2.1rem;
+      top: 1.2rem;
+      width: .9rem;
+      height: .9rem;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 22px var(--cyan)
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: .8rem;
+      align-items: center
+    }
+
+    .flow .node {
+      min-height: 120px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      border: 1px solid rgba(158, 231, 239, .35);
+      border-radius: 26px;
+      background: rgba(158, 231, 239, .08);
+      padding: 1rem
+    }
+
+    .arrow {
+      height: 2px;
+      background: linear-gradient(90deg, var(--cyan), var(--red));
+      box-shadow: 0 0 18px var(--cyan)
+    }
+
+    .proc-diagram {
+      display: grid;
+      gap: .4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%
+    }
+
+    .proc-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.05fr);
+      gap: .5rem 1.1rem;
+      align-items: center;
+      justify-items: center;
+      width: 100%
+    }
+
+    .proc-col-title {
+      font-size: clamp(.7rem, .95vw, .9rem);
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      align-self: end
+    }
+
+    .proc-node {
+      display: grid;
+      place-items: center;
+      text-align: center;
+      border: 1px solid rgba(158, 231, 239, .35);
+      border-radius: 22px;
+      background: rgba(158, 231, 239, .08);
+      padding: .8rem 1.05rem;
+      min-height: 78px;
+      width: 100%;
+      font-size: clamp(.95rem, 1.25vw, 1.2rem)
+    }
+
+    .proc-arrow-v {
+      font-size: 1.6rem;
+      color: var(--cyan);
+      text-shadow: 0 0 12px var(--cyan);
+      line-height: 1
+    }
+
+    .proc-note {
+      padding: .7rem .9rem;
+      font-size: clamp(.85rem, 1.05vw, 1rem);
+      line-height: 1.3
+    }
+
+    .proc-side-stack {
+      display: grid;
+      gap: .5rem;
+      width: 100%;
+      align-self: center
+    }
+
+    .proc-merge {
+      position: relative;
+      width: 100%;
+      height: 54px;
+      justify-self: stretch
+    }
+
+    .proc-merge>span {
+      position: absolute;
+      background: var(--cyan);
+      box-shadow: 0 0 10px var(--cyan);
+      display: block
+    }
+
+    .proc-merge>.ml {
+      left: calc(25% - 1px);
+      top: 0;
+      width: 2px;
+      height: 50%
+    }
+
+    .proc-merge>.mr {
+      left: calc(75% - 1px);
+      top: 0;
+      width: 2px;
+      height: 50%
+    }
+
+    .proc-merge>.mh {
+      left: 25%;
+      top: calc(50% - 1px);
+      height: 2px;
+      width: 50%
+    }
+
+    .proc-merge>.mc {
+      left: calc(50% - 1px);
+      top: 50%;
+      width: 2px;
+      height: 50%
+    }
+
+    .proc-node-merge {
+      background: rgba(255, 54, 85, .08);
+      border-color: rgba(255, 54, 85, .4);
+      justify-self: center;
+      max-width: 560px
+    }
+
+    .proc-node-final {
+      background: rgba(184, 255, 114, .12);
+      border-color: rgba(184, 255, 114, .45);
+      justify-self: center;
+      max-width: 520px
+    }
+
+    .proc-note-side {
+      max-width: 380px;
+      justify-self: start;
+      align-self: center
+    }
+
+    @media(max-width:850px) {
+      .proc-grid {
+        grid-template-columns: 1fr
+      }
+
+      .proc-grid>* {
+        grid-column: 1/-1 !important;
+        grid-row: auto !important;
+        justify-self: center !important
+      }
+
+      .proc-merge {
+        display: none
+      }
+    }
+
+    .symbol {
+      font-size: clamp(4rem, 12vw, 11rem);
+      line-height: 1;
+      opacity: .9;
+      filter: drop-shadow(0 0 30px rgba(158, 231, 239, .22))
+    }
+
+    .ghost {
+      position: absolute;
+      right: 5vw;
+      bottom: 5vh;
+      font-size: 22vw;
+      opacity: .045;
+      z-index: -1
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--muted);
+      font-size: .88rem
+    }
+
+    .progress {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--cyan), var(--red));
+      width: 0;
+      z-index: 20;
+      box-shadow: 0 0 20px var(--cyan)
+    }
+
+    .navhint {
+      position: fixed;
+      right: 1rem;
+      top: 1rem;
+      z-index: 30;
+      color: var(--muted);
+      font-size: .8rem
+    }
+
+    .diagram {
+      position: relative;
+      min-height: 55vh
+    }
+
+    .bubble {
+      position: absolute;
+      border: 1px solid rgba(158, 231, 239, .4);
+      background: rgba(158, 231, 239, .08);
+      border-radius: 999px;
+      padding: 1rem 1.4rem;
+      text-align: center;
+      box-shadow: var(--shadow)
+    }
+
+    .b1 {
+      left: 3%;
+      top: 12%
+    }
+
+    .b2 {
+      right: 8%;
+      top: 8%
+    }
+
+    .b3 {
+      left: 28%;
+      bottom: 14%
+    }
+
+    .b4 {
+      right: 18%;
+      bottom: 10%
+    }
+
+    .thin-line {
+      position: absolute;
+      height: 2px;
+      background: linear-gradient(90deg, var(--cyan), transparent);
+      transform-origin: left;
+      box-shadow: 0 0 14px var(--cyan)
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 2rem;
+      align-items: center
+    }
+
+    .funnel {
+      font-size: 13rem;
+      color: var(--red);
+      text-shadow: 0 0 40px rgba(255, 54, 85, .55);
+      text-align: center
+    }
+
+    .questions {
+      columns: 2;
+      column-gap: 2rem
+    }
+
+    .questions .q {
+      break-inside: avoid;
+      margin: 0 0 1rem;
+      padding: 1rem;
+      border-left: 4px solid var(--red);
+      background: rgba(255, 255, 255, .05);
+      border-radius: 16px
+    }
+
+    .q strong {
+      color: var(--red)
+    }
+
+    .reg-diagram {
+      position: relative;
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: .5rem 0 0
+    }
+
+    .reg-tree {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: .6rem 1.2rem;
+      align-items: center;
+      margin: .4rem 0 1rem;
+      padding-top: 1.1rem
+    }
+
+    .reg-tree:before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: -1rem;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 1.2rem;
+      background: var(--cyan);
+      box-shadow: 0 0 14px var(--cyan)
+    }
+
+    .reg-tree-header {
+      grid-column: 1/-1;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: .6rem 1.2rem;
+      align-items: end;
+      font-size: clamp(.7rem, .95vw, .88rem);
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: .2rem
+    }
+
+    .reg-tree-header .h-chosen {
+      color: var(--green);
+      text-align: right;
+      padding-right: .6rem
+    }
+
+    .reg-tree-header .h-alt {
+      color: var(--muted);
+      text-align: left;
+      padding-left: .6rem;
+      opacity: .75
+    }
+
+    .reg-chosen-box {
+      justify-self: end;
+      padding: .55rem 1.1rem;
+      border-radius: 999px;
+      background: rgba(158, 231, 239, .18);
+      border: 1px solid rgba(158, 231, 239, .55);
+      box-shadow: 0 0 22px rgba(158, 231, 239, .18);
+      font-size: clamp(.95rem, 1.25vw, 1.15rem);
+      color: #eaf6f7;
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      min-width: 11rem;
+      justify-content: center
+    }
+
+    .reg-chosen-box.is-current {
+      background: rgba(184, 255, 114, .14);
+      border-color: rgba(184, 255, 114, .55);
+      box-shadow: 0 0 22px rgba(184, 255, 114, .22);
+      color: #f4ffe6;
+      font-weight: 700
+    }
+
+    .reg-chosen-box .check {
+      color: var(--green);
+      font-weight: 900
+    }
+
+    .reg-divider {
+      width: 2px;
+      height: 1.4rem;
+      background: linear-gradient(var(--cyan), var(--red));
+      opacity: .55;
+      border-radius: 2px
+    }
+
+    .reg-alt-box {
+      justify-self: start;
+      padding: .5rem 1rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .04);
+      border: 1px dashed rgba(255, 255, 255, .18);
+      font-size: clamp(.92rem, 1.2vw, 1.1rem);
+      color: var(--muted);
+      opacity: .7;
+      min-width: 11rem;
+      text-align: center
+    }
+
+    .reg-spine {
+      position: absolute;
+      left: calc(50% - 1px);
+      top: 1.6rem;
+      bottom: -1.5rem;
+      width: 2px;
+      background: linear-gradient(var(--cyan), rgba(158, 231, 239, .0));
+      opacity: 0;
+      pointer-events: none
+    }
+
+    .reg-chosen-rail {
+      position: absolute;
+      width: 2px;
+      background: var(--cyan);
+      box-shadow: 0 0 14px var(--cyan);
+      opacity: .5
+    }
+
+    .reg-laws-intro {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      margin: .4rem 0 .55rem;
+      color: #cfd6df;
+      font-size: clamp(.85rem, 1.1vw, 1rem);
+      letter-spacing: .04em
+    }
+
+    .reg-laws-intro .arr {
+      display: inline-block;
+      color: var(--cyan);
+      text-shadow: 0 0 10px var(--cyan)
+    }
+
+    .reg-laws {
+      position: relative;
+      list-style: none;
+      margin: 0;
+      padding: 0 0 0 .4rem;
+      font-size: clamp(.92rem, 1.25vw, 1.15rem);
+      line-height: 1.5;
+      color: #e6ecf2
+    }
+
+    .reg-laws li {
+      position: relative;
+      padding-left: 1.4rem;
+      margin: .18rem 0
+    }
+
+    .reg-laws li:before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: var(--cyan);
+      text-shadow: 0 0 8px var(--cyan)
+    }
+
+    .reg-laws li.no-arrow {
+      padding-left: 1.4rem
+    }
+
+    .reg-laws li.no-arrow:before {
+      content: ""
+    }
+
+    @media(max-width:850px) {
+
+      .cols2,
+      .cols3,
+      .flow,
+      .stats {
+        grid-template-columns: 1fr
+      }
+
+      .arrow {
+        display: none
+      }
+
+      .slide {
+        padding: 7vh 5vw
+      }
+
+      .questions {
+        columns: 1
+      }
+
+      .ghost {
+        display: none
+      }
+
+      .reg-tree {
+        grid-template-columns: 1fr;
+        gap: .4rem
+      }
+
+      .reg-tree-header {
+        display: none
+      }
+
+      .reg-chosen-box,
+      .reg-alt-box {
+        justify-self: stretch;
+        text-align: center;
+        min-width: 0
+      }
+
+      .reg-divider {
+        display: none
+      }
+
+      .reg-laws {
+        margin-top: 1rem;
+        padding-left: 1rem
+      }
+    }
+  </style>
 </head>
+
 <body>
-<canvas id="trail"></canvas><div class="progress" id="progress"></div><div class="navhint">← / → or Space</div>
-<main class="deck" id="deck">
-<section class="slide active" data-point="8,78"><div><span class="kicker">DEVELOP</span></div><div class="content"><h1>DEVELOP</h1><h2><span class="cyan">Phase 2</span> — Development on the AI‑ADOPT case</h2><p class="huge">Edited by the <span class="italic">Gotta cache ‘em all</span> team</p><p class="small">Alice Fornari (Law) · Edoardo Rustichini (AI) · Claudia Sammartino (Philosophy) · Luca Sinopoli (AI)</p><div class="ghost">👥</div></div><div class="footer"><span>Università degli Studi di Firenze</span><span>01 / 20</span></div></section>
-<section class="slide" data-point="18,16"><div><span class="title-pill kicker">Case AI‑ADOPT</span></div><div class="content timeline"><div class="step"><b>Phase 1 — Inefficiencies</b><br>Growing number of children awaiting placement; long evaluation times for candidate adopting families.</div><div class="step"><b>Phase 2 — Introduction of the AI System</b><br>GPT analysis, scoring and filtering of candidates; automated matching; two-week pre-adoption period.</div><div class="step"><b>Phase 3 — Automation bias</b><br>Good results of the AI system; human oversight reduced to algorithmic validation.</div><div class="step"><b>Phase 4 — Emerging issues</b><br>Unfair rankings and black-box effects.</div><div class="step"><b>Phase 5/6/7 — Crisis, accountability and restyling</b><br>Legal action, investigations, and institutional choice.</div></div><div class="footer"><span>NOW? Gotta cache ‘em all team learning from the issues that came up and use a critical approach to develop a more balanced solution that try to follows laws, ethics, and principles</span><span>02 / 20</span></div></section>
-<section class="slide" data-point="39,18"><div style="text-align:center"><span class="title-pill kicker">The regulatory framework</span></div><div class="content"><div class="reg-diagram"><div class="reg-tree"><div class="reg-tree-header"><span class="h-chosen">Path we follow ✓</span><span></span><span class="h-alt">Alternative branches</span></div><div class="reg-chosen-box"><span class="check">✓</span> Adoption</div><div class="reg-divider"></div><div class="reg-alt-box">Fostering</div><div class="reg-chosen-box is-current"><span class="check">✓</span> National adoption</div><div class="reg-divider"></div><div class="reg-alt-box">International adoption</div><div class="reg-chosen-box"><span class="check">✓</span> Minors</div><div class="reg-divider"></div><div class="reg-alt-box">Adults</div></div><div class="reg-laws-intro"><span class="arr">▼</span><span>Laws that govern the path we follow</span></div><ul class="reg-laws"><li>L. 149/2001 - <span class="italic">"Disciplina dell'adozione e dell'affidamento dei minori"</span></li><li>L. 184/1983 - <span class="italic">"Diritto del minore ad una famiglia"</span></li><li>L. 104/1992 - <span class="italic">"Legge-quadro per l'assistenza, l'integrazione sociale e i diritti delle persone handicappate"</span></li><li>L. 176/1991 - <span class="italic">"Ratifica ed esecuzione della convenzione sui diritti del fanciullo, fatta a New York il 20 novembre 1989"</span></li><li>Titolo VIII del libro primo del codice civile - <span class="italic">"Dell'adozione di persone maggiori di età"</span></li><li class="no-arrow">Regional guideline</li></ul></div></div><div class="footer"><span>From legal category to design constraint.</span><span>03 / 20</span></div></section>
-<section class="slide" data-point="62,18"><div><span class="title-pill kicker">The adoption procedure and its bottlenecks</span></div><div class="content"><div class="proc-diagram"><div class="proc-grid"><span class="proc-col-title" style="grid-column:1;grid-row:1">Child status</span><span class="proc-col-title" style="grid-column:2;grid-row:1">Couple evaluation</span><div class="proc-node" style="grid-column:1;grid-row:2">Reporting and verification of abandonment</div><div class="proc-node" style="grid-column:2;grid-row:2">Application for adoption<br><b>3 years max</b></div><span class="proc-arrow-v" style="grid-column:1;grid-row:3">↓</span><span class="proc-arrow-v" style="grid-column:2;grid-row:3">↓</span><div class="proc-node" style="grid-column:1;grid-row:4">Declaration of adoptability</div><div class="proc-node" style="grid-column:2;grid-row:4">Assessment of couples<br><b>120 days</b></div><div class="proc-side-stack" style="grid-column:3;grid-row:4"><div class="card proc-note">Interviews with social workers and home visits must be organized.</div><div class="card proc-note">Social Services and Local Health Authorities are understaffed.</div></div><div class="proc-merge" style="grid-column:1/3;grid-row:5"><span class="ml"></span><span class="mr"></span><span class="mh"></span><span class="mc"></span></div><div class="proc-node proc-node-merge" style="grid-column:1/3;grid-row:6">Matching and pre-adoptive placement<br><b>365 days</b></div><div class="card proc-note proc-note-side" style="grid-column:3;grid-row:6">Juvenile Courts with overbooked schedules must analyze reports.</div><span class="proc-arrow-v" style="grid-column:1/3;grid-row:7">↓</span><div class="proc-node proc-node-final" style="grid-column:1/3;grid-row:8">Finalization of adoption</div></div></div><div class="footer"><span>The bottleneck is procedural, institutional, and human.</span><span>04 / 20</span></div></section>
-<section class="slide" data-point="78,32"><div><span class="title-pill kicker">The positive bottleneck</span></div><div class="content stats"><div class="card"><h3>Families available for adoption</h3><p class="huge"><b>2003:</b> 13,276<br><b>2007:</b> 15,810</p></div><div class="funnel">⌬</div><div class="card"><h3>National adoptions</h3><p class="huge"><b>2003:</b> 1,575<br><b>2007:</b> 1,815</p></div><div class="card" style="grid-column:1/-1"><p class="quote">“Initial problem: pressure due to a growing number of children awaiting placement.”</p><p>Ratio of adoptable children to available couples: <b class="accent">1 to 8–10</b>. Many couples see their three-year eligibility expire without any match.</p><p class="small">ISTAT, Dossier famiglia 2010, pp. 29–33.</p></div></div><div class="footer"><span>More availability does not automatically mean more matches.</span><span>05 / 20</span></div></section>
-<section class="slide" data-point="82,52"><div></div><div class="content cols2 grid" style="grid-template-columns:1.15fr 1fr;align-items:center"><div style="display:grid;place-items:center"><img src="assets/lady-justice.png" alt="Blindfolded Lady Justice holding raised scales" style="width:100%;max-width:620px;height:auto;max-height:78vh;mix-blend-mode:screen;filter:drop-shadow(0 0 28px rgba(255,255,255,.22)) drop-shadow(0 0 70px rgba(158,231,239,.10))"/></div><div><h2>Legal concerns</h2><p class="huge"><span class="accent">3</span> main issues can be identified, with particular emphasis on the <span class="accent">erosion of the best interests of the child principle.</span></p></div></div><div class="footer"><span>Law is not a late-stage check. It shapes the design.</span><span>06 / 20</span></div></section>
-<section class="slide" data-point="69,70"><div><span class="title-pill kicker">1. Scoring system</span></div><div class="content cols2 grid" style="align-items:center;grid-template-columns:1fr 1fr"><div><p class="huge">Can exclusion without human oversight amount to a form of social scoring?</p><p class="huge accent"><b>Art. 5(1)(c), AI Act</b></p><span class="ask">ASK 1</span> <span class="ask">ASK 5</span></div><div style="display:grid;place-items:center"><svg viewBox="0 0 400 500" role="img" aria-label="Scales of justice" style="width:100%;max-width:520px;height:auto;max-height:74vh;filter:drop-shadow(0 0 32px rgba(255,255,255,.32)) drop-shadow(0 0 80px rgba(158,231,239,.18))"><g fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="9"><circle cx="200" cy="40" r="11" fill="#ffffff" stroke="none"/><line x1="200" y1="51" x2="200" y2="425"/><line x1="58" y1="112" x2="342" y2="112"/><line x1="58" y1="112" x2="28" y2="226" stroke-width="5"/><line x1="58" y1="112" x2="118" y2="226" stroke-width="5"/><line x1="342" y1="112" x2="282" y2="226" stroke-width="5"/><line x1="342" y1="112" x2="372" y2="226" stroke-width="5"/><path d="M18 226 L128 226 Q73 300 18 226 Z" fill="rgba(255,255,255,.08)"/><path d="M272 226 L382 226 Q327 300 272 226 Z" fill="rgba(255,255,255,.08)"/><line x1="160" y1="425" x2="240" y2="425"/><line x1="168" y1="425" x2="132" y2="470" stroke-width="7"/><line x1="232" y1="425" x2="268" y2="470" stroke-width="7"/><path d="M120 472 L280 472" stroke-width="12"/></g></svg></div></div><div class="footer"><span>The threshold must not become exclusion by score.</span><span>07 / 20</span></div></section>
-<section class="slide" data-point="47,78"><div><span class="title-pill kicker">2. Reuse of sensitive data</span></div><div class="content" style="display:grid;place-items:center;text-align:center"><div style="max-width:1100px;width:100%"><h2 style="font-size:clamp(2.6rem,6.4vw,6.4rem);margin:0 0 .6em">Reuse of sensitive data</h2><ul class="huge" style="list-style:none;padding:0;margin:0;display:grid;gap:1rem;font-size:clamp(1.6rem,3.2vw,3.2rem);line-height:1.18"><li>Invalid consent</li><li><span class="accent">GDPR compliance issues</span></li><li>Technical risks</li></ul></div></div><div class="footer"><span>Sensitive data cannot be treated as neutral input.</span><span>08 / 20</span></div></section>
-<section class="slide" data-point="25,66"><div><span class="title-pill kicker">3. Discrimination caused by proxy variables</span></div><div class="content" style="display:grid;place-items:center;text-align:center"><div style="max-width:1100px;width:100%"><h2 style="font-size:clamp(2.6rem,6.4vw,6.4rem);margin:0 0 .6em">Discrimination caused by proxy variables</h2><ul class="huge" style="list-style:none;padding:0;margin:0 0 1.2rem;display:grid;gap:1rem;font-size:clamp(1.6rem,3.2vw,3.2rem);line-height:1.18"><li><span class="accent">Postal code</span> — similar to COMPAS, 2016</li><li>Dialect-based discrimination</li><li>“Black box” effects</li></ul><span class="ask">ASK 8</span></div></div><div class="footer"><span>Indirect bias can enter through apparently ordinary variables.</span><span>09 / 20</span></div></section>
-<section class="slide" data-point="13,43"><div></div><div class="content cols2 grid"><div class="symbol">?</div><div><h2>Ethical issues</h2><ul class="huge"><li><span class="accent">Adoption is not a technical allocation problem</span></li><li>From support to automation</li><li>Quantification and reductionism</li><li>Best interest and fairness</li><li>Opacity and sociotechnical context</li><li>Why redefinition is needed</li></ul><span class="ask">ASK 5</span> <span class="ask">ASK 6</span></div></div><div class="footer"><span>The system must support judgement, not replace care.</span><span>10 / 20</span></div></section>
-<section class="slide" data-point="24,21"><div></div><div class="content cols2 grid"><div class="symbol">🤝</div><div><h2><span class="accent">Pharmakon</span> nature of AI</h2><h3>From a logic of optimisation to a logic of care</h3><p class="huge">A care-based approach does not aim to perfect the system, but to protect the irreducible singularity of the child and the relationships that surround them.</p><span class="ask">ASK 7</span></div></div><div class="footer"><span>AI can help or harm depending on how it is positioned.</span><span>11 / 20</span></div></section>
-<section class="slide" data-point="51,31"><div><span class="kicker accent">About principles</span></div><div class="content cards"><div class="card"><h3>Dignity</h3><p>Individuals risk being treated as calculable profiles rather than singular, relational persons.</p></div><div class="card"><h3>Responsibility</h3><p>Accountability may be dispersed across professionals, institutions, and the model itself.</p></div><div class="card"><h3>Fairness</h3><p>Proxies such as postal code, socioeconomic status, or linguistic style may generate bias and indirect discrimination.</p></div><div class="card"><h3>Procedural autonomy</h3><p>Poorly informed families may be unable to understand or challenge the role of ranking.</p></div><div class="card"><h3>Transparency</h3><p>The system may become a black box, obscuring the reasons behind exclusion or selection.</p></div><div class="card"><h3>Beneficence / Non-maleficence</h3><p>Faster procedures may reduce delays, but also cause harm through mistaken matches or reductive assessments.</p></div></div><div class="footer"><span>Principles become requirements.</span><span>12 / 20</span></div></section>
-<section class="slide" data-point="73,39"><div></div><div class="content"><h2>Ethical trade-off</h2><div class="cards"><div class="card"><h3>Efficiency vs fairness</h3><p>Reducing delays matters, but not at the cost of unjust exclusion or reinforcing existing bias.</p></div><div class="card"><h3>Uniformity vs individualisation</h3><p>Standardisation can limit arbitrariness, but risks erasing the singularity of each case and professional prudence.</p></div><div class="card"><h3>Prediction vs understanding</h3><p>The system can detect patterns, but cannot fully grasp lived experience, relationships, and intersubjective compatibility.</p></div><div class="card"><h3>Capacity vs dignity</h3><p>Increasing administrative capacity does not justify turning children and families into objects of optimisation.</p></div></div></div><div class="footer"><span>Each efficiency gain has a normative cost.</span><span>13 / 20</span></div></section>
-<section class="slide" data-point="85,58"><div></div><div class="content cols2 grid"><div><h2>Old design: strengths & weaknesses</h2><p class="huge">NLP is not good for scoring, but it can be useful for extracting, organizing, and comparing information under human supervision.</p></div><div class="symbol">🧑‍💻</div></div><div class="footer"><span>The original design over-relied on scoring.</span><span>14 / 20</span></div></section>
-<section class="slide" data-point="68,75"><div></div><div class="content"><h2>New design</h2><div class="flow"><div class="node">Legal filter<br><span class="small">deterministic rules</span></div><div class="arrow"></div><div class="node">Summarization<br><span class="small">NLP support</span></div><div class="arrow"></div><div class="node">Vector DB<br><span class="small">retrieval</span></div></div><div class="flow" style="margin-top:1rem"><div class="node">2D visualization<br><span class="small">case exploration</span></div><div class="arrow"></div><div class="node">Human-in-the-loop<br><span class="small">professional judgement</span></div><div class="arrow"></div><div class="node">Documented decision<br><span class="small">accountability</span></div></div></div><div class="footer"><span>Pipeline replacing automatic ranking with controlled decision support.</span><span>15 / 20</span></div></section>
-<section class="slide" data-point="44,62"><div></div><div class="content cols2 grid"><div><h2>Legal filter</h2><p class="huge">At this stage there is no AI: only deterministic algorithms. The filter checks legal eligibility and hard constraints before any AI-assisted analysis is used.</p></div><div class="symbol">🧬</div></div><div class="footer"><span>Legal boundaries first, model output later.</span><span>16 / 20</span></div></section>
-<section class="slide" data-point="22,82"><div></div><div class="content cols2 grid"><div><h2>Summarization + vector DB</h2><p class="huge">NLP is used to summarize social-service reports and structure relevant information. A vector database supports retrieval across cases without turning qualitative material into a final score.</p><span class="ask">ASK 2</span></div><div class="symbol">🗂️</div></div><div class="footer"><span>From scoring to traceable information retrieval.</span><span>17 / 20</span></div></section>
-<section class="slide" data-point="10,61"><div></div><div class="content cols2 grid"><div><h2>Retrieval + 2D visualization</h2><p class="huge">The system helps professionals explore similarities, distances, and relevant patterns. Visualization is used as an interpretive aid, not as a ranking machine.</p></div><div class="symbol">📊</div></div><div class="footer"><span>Visualization makes relations visible, not decisions automatic.</span><span>18 / 20</span></div></section>
-<section class="slide" data-point="39,38"><div></div><div class="content cols2 grid"><div><h2>HITL</h2><p class="huge">Human-in-the-loop means that social workers and the Juvenile Court remain responsible for interpretation, justification, and final decision-making.</p></div><div class="symbol">🦾</div></div><div class="footer"><span>Human oversight must be substantive, not ceremonial.</span><span>19 / 20</span></div></section>
-<section class="slide" data-point="76,15"><div><span class="title-pill kicker accent">The asks of the deployers</span></div><div class="content questions"><div class="q"><strong>ASK ONE.</strong> Given that the system uses a ‘threshold’, how can you ensure that this feature does not fall under the absolute ban on Social Scoring under Section 5 of the AI Act?</div><div class="q"><strong>ASK TWO.</strong> Given that the system uses an NLP module to analyze social services reports, how does it ensures the robustness and reliability of information extraction from unstructured, often subjective and potentially incomplete texts?</div><div class="q"><strong>ASK THREE.</strong> If after a few weeks of living together the match isn’t successful (the couple is not suitable for the child) and the child is removed from the couple, how does this system learn from its matching mistakes?</div><div class="q"><strong>ASK FOUR.</strong> How can the matching process be managed so that it does not introduce bias or spurious correlations, for example based on irrelevant features or sensitive proxies?</div><div class="q"><strong>ASK FIVE.</strong> Is the system designed to support decision-making to speed up procedures, or is it at risk of becoming an automated decision-making process, diminishing the role of social workers and the Tribunale dei Minorenni?</div><div class="q"><strong>ASK SIX.</strong> Does the expedited decisional process justify the loss in empathy and human evaluation skill? More specifically, is it more harmful to risk dehumanizing the adoption process through automation, or to maintain slow procedures that may leave children without a stable family for too long? Can the acceleration of the process, despite all the implied risks, be justified in light of the child’s best interests?</div><div class="q"><strong>ASK SEVEN.</strong> How can we evaluate complex concepts such as “empathy”, “resilience”, “patience” with a score from 1 to 5 without incur in reductionism and dehumanization?</div><div class="q"><strong>ASK EIGHT.</strong> Does the system also evaluate the dialectal differences that could be shown in the transcriptions of the meeting with the social workers? And how? Does the system evaluate even the form of the answers?</div></div><div class="footer"><span>End</span><span>20 / 20</span></div></section>
-</main>
-<script>
-const slides=[...document.querySelectorAll('.slide')];let i=0;const progress=document.getElementById('progress');
-function show(n){slides[i].classList.remove('active');slides[i].classList.add('prev');i=(n+slides.length)%slides.length;slides.forEach((s,k)=>{if(k!==i)s.classList.remove('active'); if(k!==i-1)s.classList.toggle('prev',k<i)});slides[i].classList.add('active');progress.style.width=((i+1)/slides.length*100)+'%';burst();}
-addEventListener('keydown',e=>{if(['ArrowRight',' ','PageDown'].includes(e.key)){e.preventDefault();show(i+1)} if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(i-1)}});
-addEventListener('click',e=>{if(e.target.closest('a'))return; show(i+1)});progress.style.width=(1/slides.length*100)+'%';
-const c=document.getElementById('trail'),ctx=c.getContext('2d');let W,H,pts=[],sparks=[];function resize(){W=c.width=innerWidth*devicePixelRatio;H=c.height=innerHeight*devicePixelRatio;ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0)}resize();addEventListener('resize',resize);
-function getPoint(k){const p=slides[k].dataset.point.split(',').map(Number);return {x:p[0]/100*innerWidth,y:p[1]/100*innerHeight}}
-function burst(){const p=getPoint(i);for(let n=0;n<44;n++)sparks.push({x:p.x,y:p.y,vx:(Math.random()-.5)*8,vy:(Math.random()-.5)*8,life:1,r:Math.random()*2+1})}
-function draw(){ctx.clearRect(0,0,innerWidth,innerHeight);pts=slides.slice(0,i+1).map((_,k)=>getPoint(k));ctx.lineWidth=3;ctx.lineCap='round';ctx.lineJoin='round';let g=ctx.createLinearGradient(0,0,innerWidth,innerHeight);g.addColorStop(0,'rgba(158,231,239,.85)');g.addColorStop(.55,'rgba(255,255,255,.55)');g.addColorStop(1,'rgba(255,54,85,.8)');ctx.strokeStyle=g;ctx.beginPath();pts.forEach((p,k)=>{if(k===0)ctx.moveTo(p.x,p.y);else{const prev=pts[k-1];ctx.bezierCurveTo(prev.x+120,prev.y-80,p.x-120,p.y+80,p.x,p.y)}});ctx.stroke();ctx.lineWidth=14;ctx.strokeStyle='rgba(158,231,239,.045)';ctx.stroke();pts.forEach((p,k)=>{ctx.beginPath();ctx.fillStyle=k===i?'rgba(255,54,85,.95)':'rgba(158,231,239,.72)';ctx.arc(p.x,p.y,k===i?6:3,0,Math.PI*2);ctx.fill()});sparks.forEach(s=>{s.x+=s.vx;s.y+=s.vy;s.vx*=.97;s.vy*=.97;s.life-=.018;ctx.beginPath();ctx.fillStyle=`rgba(158,231,239,${Math.max(s.life,0)})`;ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill()});sparks=sparks.filter(s=>s.life>0);requestAnimationFrame(draw)}draw();burst();
-</script>
+  <canvas id="trail"></canvas>
+  <div class="progress" id="progress"></div>
+  <div class="navhint">← / → or Space</div>
+  <main class="deck" id="deck">
+    <section class="slide active" data-point="8,78">
+      <div><span class="kicker">DEVELOP</span></div>
+      <div class="content">
+        <h1>DEVELOP</h1>
+        <h2><span class="cyan">Phase 2</span> — Development on the AI‑ADOPT case</h2>
+        <p class="huge">Edited by the <span class="italic">Gotta cache ‘em all</span> team</p>
+        <p class="small">Alice Fornari (Law) · Edoardo Rustichini (AI) · Claudia Sammartino (Philosophy) · Luca Sinopoli
+          (AI)</p>
+        <div class="ghost">👥</div>
+      </div>
+      <div class="footer"><span>Università degli Studi di Firenze</span><span>01 / 20</span></div>
+    </section>
+    <section class="slide" data-point="18,16">
+      <div><span class="title-pill kicker">Case AI‑ADOPT</span></div>
+      <div class="content timeline">
+        <div class="step"><b>Phase 1 — Inefficiencies</b><br>Growing number of children awaiting placement; long
+          evaluation times for candidate adopting families.</div>
+        <div class="step"><b>Phase 2 — Introduction of the AI System</b><br>GPT analysis, scoring and filtering of
+          candidates; automated matching; two-week pre-adoption period.</div>
+        <div class="step"><b>Phase 3 — Automation bias</b><br>Good results of the AI system; human oversight reduced to
+          algorithmic validation.</div>
+        <div class="step"><b>Phase 4 — Emerging issues</b><br>Unfair rankings and black-box effects.</div>
+        <div class="step"><b>Phase 5/6/7 — Crisis, accountability and restyling</b><br>Legal action, investigations, and
+          institutional choice.</div>
+      </div>
+      <div class="footer"><span>NOW? Gotta cache ‘em all team learning from the issues that came up and use a critical
+          approach to develop a more balanced solution that try to follows laws, ethics, and principles</span><span>02 /
+          20</span></div>
+    </section>
+    <section class="slide" data-point="39,18">
+      <div style="text-align:center"><span class="title-pill kicker">The regulatory framework</span></div>
+      <div class="content">
+        <div class="reg-diagram">
+          <div class="reg-tree">
+            <div class="reg-tree-header"><span class="h-chosen">Path we follow ✓</span><span></span><span
+                class="h-alt">Alternative branches</span></div>
+            <div class="reg-chosen-box"><span class="check">✓</span> Adoption</div>
+            <div class="reg-divider"></div>
+            <div class="reg-alt-box">Fostering</div>
+            <div class="reg-chosen-box is-current"><span class="check">✓</span> National adoption</div>
+            <div class="reg-divider"></div>
+            <div class="reg-alt-box">International adoption</div>
+            <div class="reg-chosen-box"><span class="check">✓</span> Minors</div>
+            <div class="reg-divider"></div>
+            <div class="reg-alt-box">Adults</div>
+          </div>
+          <div class="reg-laws-intro"><span class="arr">▼</span><span>Laws that govern the path we follow</span></div>
+          <ul class="reg-laws">
+            <li>L. 149/2001 - <span class="italic">"Disciplina dell'adozione e dell'affidamento dei minori"</span></li>
+            <li>L. 184/1983 - <span class="italic">"Diritto del minore ad una famiglia"</span></li>
+            <li>L. 104/1992 - <span class="italic">"Legge-quadro per l'assistenza, l'integrazione sociale e i diritti
+                delle persone handicappate"</span></li>
+            <li>L. 176/1991 - <span class="italic">"Ratifica ed esecuzione della convenzione sui diritti del fanciullo,
+                fatta a New York il 20 novembre 1989"</span></li>
+            <li>Titolo VIII del libro primo del codice civile - <span class="italic">"Dell'adozione di persone maggiori
+                di età"</span></li>
+            <li class="no-arrow">Regional guideline</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer"><span>From legal category to design constraint.</span><span>03 / 20</span></div>
+    </section>
+    <section class="slide" data-point="62,18">
+      <div><span class="title-pill kicker">The adoption procedure and its bottlenecks</span></div>
+      <div class="content">
+        <div class="proc-diagram">
+          <div class="proc-grid"><span class="proc-col-title" style="grid-column:1;grid-row:1">Child status</span><span
+              class="proc-col-title" style="grid-column:2;grid-row:1">Couple evaluation</span>
+            <div class="proc-node" style="grid-column:1;grid-row:2">Reporting and verification of abandonment</div>
+            <div class="proc-node" style="grid-column:2;grid-row:2">Application for adoption<br><b>3 years max</b></div>
+            <span class="proc-arrow-v" style="grid-column:1;grid-row:3">↓</span><span class="proc-arrow-v"
+              style="grid-column:2;grid-row:3">↓</span>
+            <div class="proc-node" style="grid-column:1;grid-row:4">Declaration of adoptability</div>
+            <div class="proc-node" style="grid-column:2;grid-row:4">Assessment of couples<br><b>120 days</b></div>
+            <div class="proc-side-stack" style="grid-column:3;grid-row:4">
+              <div class="card proc-note">Interviews with social workers and home visits must be organized.</div>
+              <div class="card proc-note">Social Services and Local Health Authorities are understaffed.</div>
+            </div>
+            <div class="proc-merge" style="grid-column:1/3;grid-row:5"><span class="ml"></span><span
+                class="mr"></span><span class="mh"></span><span class="mc"></span></div>
+            <div class="proc-node proc-node-merge" style="grid-column:1/3;grid-row:6">Matching and pre-adoptive
+              placement<br><b>365 days</b></div>
+            <div class="card proc-note proc-note-side" style="grid-column:3;grid-row:6">Juvenile Courts with overbooked
+              schedules must analyze reports.</div><span class="proc-arrow-v"
+              style="grid-column:1/3;grid-row:7">↓</span>
+            <div class="proc-node proc-node-final" style="grid-column:1/3;grid-row:8">Finalization of adoption</div>
+          </div>
+        </div>
+        <div class="footer"><span>The bottleneck is procedural, institutional, and human.</span><span>04 / 20</span>
+        </div>
+    </section>
+    <section class="slide" data-point="78,32">
+      <div><span class="title-pill kicker">The positive bottleneck</span></div>
+      <div class="content stats">
+        <div class="card">
+          <h3>Families available for adoption</h3>
+          <p class="huge"><b>2003:</b> 13,276<br><b>2007:</b> 15,810</p>
+        </div>
+        <div class="funnel">⌬</div>
+        <div class="card">
+          <h3>National adoptions</h3>
+          <p class="huge"><b>2003:</b> 1,575<br><b>2007:</b> 1,815</p>
+        </div>
+        <div class="card" style="grid-column:1/-1">
+          <p class="quote">“Initial problem: pressure due to a growing number of children awaiting placement.”</p>
+          <p>Ratio of adoptable children to available couples: <b class="accent">1 to 8–10</b>. Many couples see their
+            three-year eligibility expire without any match.</p>
+          <p class="small">ISTAT, Dossier famiglia 2010, pp. 29–33.</p>
+        </div>
+      </div>
+      <div class="footer"><span>More availability does not automatically mean more matches.</span><span>05 / 20</span>
+      </div>
+    </section>
+    <section class="slide" data-point="82,52">
+      <div></div>
+      <div class="content cols2 grid" style="grid-template-columns:1.15fr 1fr;align-items:center">
+        <div style="display:grid;place-items:center"><img src="assets/lady-justice.png"
+            alt="Blindfolded Lady Justice holding raised scales"
+            style="width:100%;max-width:620px;height:auto;max-height:78vh;mix-blend-mode:screen" />
+        </div>
+        <div>
+          <h2>Legal concerns</h2>
+          <p class="huge"><span class="accent">3</span> main issues can be identified, with particular emphasis on the
+            <span class="accent">erosion of the best interests of the child principle.</span></p>
+        </div>
+      </div>
+      <div class="footer"><span>Law is not a late-stage check. It shapes the design.</span><span>06 / 20</span></div>
+    </section>
+    <section class="slide" data-point="69,70">
+      <div><span class="title-pill kicker">1. Scoring system</span></div>
+      <div class="content cols2 grid" style="align-items:center;grid-template-columns:1fr 1fr">
+        <div>
+          <p class="huge">Can exclusion without human oversight amount to a form of social scoring?</p>
+          <p class="huge accent"><b>Art. 5(1)(c), AI Act</b></p><span class="ask">ASK 1</span> <span class="ask">ASK
+            5</span>
+        </div>
+        <div style="display:grid;place-items:center"><svg viewBox="0 0 400 500" role="img"
+            aria-label="Scales of justice"
+            style="width:100%;max-width:520px;height:auto;max-height:74vh;filter:drop-shadow(0 0 32px rgba(255,255,255,.32)) drop-shadow(0 0 80px rgba(158,231,239,.18))">
+            <g fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="9">
+              <circle cx="200" cy="40" r="11" fill="#ffffff" stroke="none" />
+              <line x1="200" y1="51" x2="200" y2="425" />
+              <line x1="58" y1="112" x2="342" y2="112" />
+              <line x1="58" y1="112" x2="28" y2="226" stroke-width="5" />
+              <line x1="58" y1="112" x2="118" y2="226" stroke-width="5" />
+              <line x1="342" y1="112" x2="282" y2="226" stroke-width="5" />
+              <line x1="342" y1="112" x2="372" y2="226" stroke-width="5" />
+              <path d="M18 226 L128 226 Q73 300 18 226 Z" fill="rgba(255,255,255,.08)" />
+              <path d="M272 226 L382 226 Q327 300 272 226 Z" fill="rgba(255,255,255,.08)" />
+              <line x1="160" y1="425" x2="240" y2="425" />
+              <line x1="168" y1="425" x2="132" y2="470" stroke-width="7" />
+              <line x1="232" y1="425" x2="268" y2="470" stroke-width="7" />
+              <path d="M120 472 L280 472" stroke-width="12" />
+            </g>
+          </svg></div>
+      </div>
+      <div class="footer"><span>The threshold must not become exclusion by score.</span><span>07 / 20</span></div>
+    </section>
+    <section class="slide" data-point="47,78">
+      <div><span class="title-pill kicker">2. Reuse of sensitive data</span></div>
+      <div class="content" style="display:grid;place-items:center;text-align:center">
+        <div style="max-width:1100px;width:100%">
+          <h2 style="font-size:clamp(2.6rem,6.4vw,6.4rem);margin:0 0 .6em">Reuse of sensitive data</h2>
+          <ul class="huge"
+            style="list-style:none;padding:0;margin:0;display:grid;gap:1rem;font-size:clamp(1.6rem,3.2vw,3.2rem);line-height:1.18">
+            <li>Invalid consent</li>
+            <li><span class="accent">GDPR compliance issues</span></li>
+            <li>Technical risks</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer"><span>Sensitive data cannot be treated as neutral input.</span><span>08 / 20</span></div>
+    </section>
+    <section class="slide" data-point="25,66">
+      <div><span class="title-pill kicker">3. Discrimination caused by proxy variables</span></div>
+      <div class="content" style="display:grid;place-items:center;text-align:center">
+        <div style="max-width:1100px;width:100%">
+          <h2 style="font-size:clamp(2.6rem,6.4vw,6.4rem);margin:0 0 .6em">Discrimination caused by proxy variables</h2>
+          <ul class="huge"
+            style="list-style:none;padding:0;margin:0 0 1.2rem;display:grid;gap:1rem;font-size:clamp(1.6rem,3.2vw,3.2rem);line-height:1.18">
+            <li><span class="accent">Postal code</span> — similar to COMPAS, 2016</li>
+            <li>Dialect-based discrimination</li>
+            <li>“Black box” effects</li>
+          </ul><span class="ask">ASK 8</span>
+        </div>
+      </div>
+      <div class="footer"><span>Indirect bias can enter through apparently ordinary variables.</span><span>09 /
+          20</span></div>
+    </section>
+    <section class="slide" data-point="13,43">
+      <div></div>
+      <div class="content cols2 grid" style="grid-template-columns:1.15fr 1fr;align-items:center">
+        <div style="display:grid;place-items:center"><img src="assets/ominochepensa.png" alt="Thinking face" style="width:100%;max-width:620px;height:auto;max-height:78vh;mix-blend-mode:screen" /></div>
+        <div>
+          <h2>Ethical issues</h2>
+          <ul class="huge">
+            <li><span class="accent">Adoption is not a technical allocation problem</span></li>
+            <li>From support to automation</li>
+            <li>Quantification and reductionism</li>
+            <li>Best interest and fairness</li>
+            <li>Opacity and sociotechnical context</li>
+            <li>Why redefinition is needed</li>
+          </ul><span class="ask">ASK 5</span> <span class="ask">ASK 6</span>
+        </div>
+      </div>
+      <div class="footer"><span>The system must support judgement, not replace care.</span><span>10 / 20</span></div>
+    </section>
+    <section class="slide" data-point="24,21">
+      <div></div>
+      <div class="content cols2 grid">
+        <div class="symbol">🤝</div>
+        <div>
+          <h2><span class="accent">Pharmakon</span> nature of AI</h2>
+          <h3>From a logic of optimisation to a logic of care</h3>
+          <p class="huge">A care-based approach does not aim to perfect the system, but to protect the irreducible
+            singularity of the child and the relationships that surround them.</p><span class="ask">ASK 7</span>
+        </div>
+      </div>
+      <div class="footer"><span>AI can help or harm depending on how it is positioned.</span><span>11 / 20</span></div>
+    </section>
+    <section class="slide" data-point="51,31">
+      <div><span class="kicker accent">About principles</span></div>
+      <div class="content cards">
+        <div class="card">
+          <h3>Dignity</h3>
+          <p>Individuals risk being treated as calculable profiles rather than singular, relational persons.</p>
+        </div>
+        <div class="card">
+          <h3>Responsibility</h3>
+          <p>Accountability may be dispersed across professionals, institutions, and the model itself.</p>
+        </div>
+        <div class="card">
+          <h3>Fairness</h3>
+          <p>Proxies such as postal code, socioeconomic status, or linguistic style may generate bias and indirect
+            discrimination.</p>
+        </div>
+        <div class="card">
+          <h3>Procedural autonomy</h3>
+          <p>Poorly informed families may be unable to understand or challenge the role of ranking.</p>
+        </div>
+        <div class="card">
+          <h3>Transparency</h3>
+          <p>The system may become a black box, obscuring the reasons behind exclusion or selection.</p>
+        </div>
+        <div class="card">
+          <h3>Beneficence / Non-maleficence</h3>
+          <p>Faster procedures may reduce delays, but also cause harm through mistaken matches or reductive assessments.
+          </p>
+        </div>
+      </div>
+      <div class="footer"><span>Principles become requirements.</span><span>12 / 20</span></div>
+    </section>
+    <section class="slide" data-point="73,39">
+      <div></div>
+      <div class="content">
+        <h2>Ethical trade-off</h2>
+        <div class="cards">
+          <div class="card">
+            <h3>Efficiency vs fairness</h3>
+            <p>Reducing delays matters, but not at the cost of unjust exclusion or reinforcing existing bias.</p>
+          </div>
+          <div class="card">
+            <h3>Uniformity vs individualisation</h3>
+            <p>Standardisation can limit arbitrariness, but risks erasing the singularity of each case and professional
+              prudence.</p>
+          </div>
+          <div class="card">
+            <h3>Prediction vs understanding</h3>
+            <p>The system can detect patterns, but cannot fully grasp lived experience, relationships, and
+              intersubjective compatibility.</p>
+          </div>
+          <div class="card">
+            <h3>Capacity vs dignity</h3>
+            <p>Increasing administrative capacity does not justify turning children and families into objects of
+              optimisation.</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer"><span>Each efficiency gain has a normative cost.</span><span>13 / 20</span></div>
+    </section>
+    <section class="slide" data-point="85,58">
+      <div></div>
+      <div class="content cols2 grid">
+        <div>
+          <h2>Old design: strengths & weaknesses</h2>
+          <p class="huge">NLP is not good for scoring, but it can be useful for extracting, organizing, and comparing
+            information under human supervision.</p>
+        </div>
+        <div class="symbol">🧑‍💻</div>
+      </div>
+      <div class="footer"><span>The original design over-relied on scoring.</span><span>14 / 20</span></div>
+    </section>
+    <section class="slide" data-point="68,75">
+      <div></div>
+      <div class="content">
+        <h2>New design</h2>
+        <div class="flow">
+          <div class="node">Legal filter<br><span class="small">deterministic rules</span></div>
+          <div class="arrow"></div>
+          <div class="node">Summarization<br><span class="small">NLP support</span></div>
+          <div class="arrow"></div>
+          <div class="node">Vector DB<br><span class="small">retrieval</span></div>
+        </div>
+        <div class="flow" style="margin-top:1rem">
+          <div class="node">2D visualization<br><span class="small">case exploration</span></div>
+          <div class="arrow"></div>
+          <div class="node">Human-in-the-loop<br><span class="small">professional judgement</span></div>
+          <div class="arrow"></div>
+          <div class="node">Documented decision<br><span class="small">accountability</span></div>
+        </div>
+      </div>
+      <div class="footer"><span>Pipeline replacing automatic ranking with controlled decision support.</span><span>15 /
+          20</span></div>
+    </section>
+    <section class="slide" data-point="44,62">
+      <div></div>
+      <div class="content cols2 grid">
+        <div>
+          <h2>Legal filter</h2>
+          <p class="huge">At this stage there is no AI: only deterministic algorithms. The filter checks legal
+            eligibility and hard constraints before any AI-assisted analysis is used.</p>
+        </div>
+        <div class="symbol">🧬</div>
+      </div>
+      <div class="footer"><span>Legal boundaries first, model output later.</span><span>16 / 20</span></div>
+    </section>
+    <section class="slide" data-point="22,82">
+      <div></div>
+      <div class="content cols2 grid">
+        <div>
+          <h2>Summarization + vector DB</h2>
+          <p class="huge">NLP is used to summarize social-service reports and structure relevant information. A vector
+            database supports retrieval across cases without turning qualitative material into a final score.</p><span
+            class="ask">ASK 2</span>
+        </div>
+        <div class="symbol">🗂️</div>
+      </div>
+      <div class="footer"><span>From scoring to traceable information retrieval.</span><span>17 / 20</span></div>
+    </section>
+    <section class="slide" data-point="10,61">
+      <div></div>
+      <div class="content cols2 grid">
+        <div>
+          <h2>Retrieval + 2D visualization</h2>
+          <p class="huge">The system helps professionals explore similarities, distances, and relevant patterns.
+            Visualization is used as an interpretive aid, not as a ranking machine.</p>
+        </div>
+        <div class="symbol">📊</div>
+      </div>
+      <div class="footer"><span>Visualization makes relations visible, not decisions automatic.</span><span>18 /
+          20</span></div>
+    </section>
+    <section class="slide" data-point="39,38">
+      <div></div>
+      <div class="content cols2 grid">
+        <div>
+          <h2>HITL</h2>
+          <p class="huge">Human-in-the-loop means that social workers and the Juvenile Court remain responsible for
+            interpretation, justification, and final decision-making.</p>
+        </div>
+        <div class="symbol">🦾</div>
+      </div>
+      <div class="footer"><span>Human oversight must be substantive, not ceremonial.</span><span>19 / 20</span></div>
+    </section>
+    <section class="slide" data-point="76,15">
+      <div><span class="title-pill kicker accent">The asks of the deployers</span></div>
+      <div class="content questions">
+        <div class="q"><strong>ASK ONE.</strong> Given that the system uses a ‘threshold’, how can you ensure that this
+          feature does not fall under the absolute ban on Social Scoring under Section 5 of the AI Act?</div>
+        <div class="q"><strong>ASK TWO.</strong> Given that the system uses an NLP module to analyze social services
+          reports, how does it ensures the robustness and reliability of information extraction from unstructured, often
+          subjective and potentially incomplete texts?</div>
+        <div class="q"><strong>ASK THREE.</strong> If after a few weeks of living together the match isn’t successful
+          (the couple is not suitable for the child) and the child is removed from the couple, how does this system
+          learn from its matching mistakes?</div>
+        <div class="q"><strong>ASK FOUR.</strong> How can the matching process be managed so that it does not introduce
+          bias or spurious correlations, for example based on irrelevant features or sensitive proxies?</div>
+        <div class="q"><strong>ASK FIVE.</strong> Is the system designed to support decision-making to speed up
+          procedures, or is it at risk of becoming an automated decision-making process, diminishing the role of social
+          workers and the Tribunale dei Minorenni?</div>
+        <div class="q"><strong>ASK SIX.</strong> Does the expedited decisional process justify the loss in empathy and
+          human evaluation skill? More specifically, is it more harmful to risk dehumanizing the adoption process
+          through automation, or to maintain slow procedures that may leave children without a stable family for too
+          long? Can the acceleration of the process, despite all the implied risks, be justified in light of the child’s
+          best interests?</div>
+        <div class="q"><strong>ASK SEVEN.</strong> How can we evaluate complex concepts such as “empathy”, “resilience”,
+          “patience” with a score from 1 to 5 without incur in reductionism and dehumanization?</div>
+        <div class="q"><strong>ASK EIGHT.</strong> Does the system also evaluate the dialectal differences that could be
+          shown in the transcriptions of the meeting with the social workers? And how? Does the system evaluate even the
+          form of the answers?</div>
+      </div>
+      <div class="footer"><span>End</span><span>20 / 20</span></div>
+    </section>
+  </main>
+  <script>
+    const slides = [...document.querySelectorAll('.slide')]; let i = 0; const progress = document.getElementById('progress');
+    function show(n) { slides[i].classList.remove('active'); slides[i].classList.add('prev'); i = (n + slides.length) % slides.length; slides.forEach((s, k) => { if (k !== i) s.classList.remove('active'); if (k !== i - 1) s.classList.toggle('prev', k < i) }); slides[i].classList.add('active'); progress.style.width = ((i + 1) / slides.length * 100) + '%'; burst(); }
+    addEventListener('keydown', e => { if (['ArrowRight', ' ', 'PageDown'].includes(e.key)) { e.preventDefault(); show(i + 1) } if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); show(i - 1) } });
+    addEventListener('click', e => { if (e.target.closest('a')) return; show(i + 1) }); progress.style.width = (1 / slides.length * 100) + '%';
+    const c = document.getElementById('trail'), ctx = c.getContext('2d'); let W, H, pts = [], sparks = []; function resize() { W = c.width = innerWidth * devicePixelRatio; H = c.height = innerHeight * devicePixelRatio; ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0) } resize(); addEventListener('resize', resize);
+    function getPoint(k) { const p = slides[k].dataset.point.split(',').map(Number); return { x: p[0] / 100 * innerWidth, y: p[1] / 100 * innerHeight } }
+    function burst() { const p = getPoint(i); for (let n = 0; n < 44; n++)sparks.push({ x: p.x, y: p.y, vx: (Math.random() - .5) * 8, vy: (Math.random() - .5) * 8, life: 1, r: Math.random() * 2 + 1 }) }
+    function draw() { ctx.clearRect(0, 0, innerWidth, innerHeight); pts = slides.slice(0, i + 1).map((_, k) => getPoint(k)); ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; let g = ctx.createLinearGradient(0, 0, innerWidth, innerHeight); g.addColorStop(0, 'rgba(158,231,239,.85)'); g.addColorStop(.55, 'rgba(255,255,255,.55)'); g.addColorStop(1, 'rgba(255,54,85,.8)'); ctx.strokeStyle = g; ctx.beginPath(); pts.forEach((p, k) => { if (k === 0) ctx.moveTo(p.x, p.y); else { const prev = pts[k - 1]; ctx.bezierCurveTo(prev.x + 120, prev.y - 80, p.x - 120, p.y + 80, p.x, p.y) } }); ctx.stroke(); ctx.lineWidth = 14; ctx.strokeStyle = 'rgba(158,231,239,.045)'; ctx.stroke(); pts.forEach((p, k) => { ctx.beginPath(); ctx.fillStyle = k === i ? 'rgba(255,54,85,.95)' : 'rgba(158,231,239,.72)'; ctx.arc(p.x, p.y, k === i ? 6 : 3, 0, Math.PI * 2); ctx.fill() }); sparks.forEach(s => { s.x += s.vx; s.y += s.vy; s.vx *= .97; s.vy *= .97; s.life -= .018; ctx.beginPath(); ctx.fillStyle = `rgba(158,231,239,${Math.max(s.life, 0)})`; ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2); ctx.fill() }); sparks = sparks.filter(s => s.life > 0); requestAnimationFrame(draw) } draw(); burst();
+  </script>
 </body>
+
 </html>
