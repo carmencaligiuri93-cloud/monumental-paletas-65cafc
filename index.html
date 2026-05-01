@@ -761,54 +761,101 @@
   <div class="progress" id="progress"></div>
   <div class="navhint">← / → or Space</div>
   <main class="deck" id="deck">
-    <section class="slide active" data-point="8,78">
+    <section id="slide-01" class="slide active" data-point="8,78">
       <div><span class="kicker">DEVELOP</span></div>
       <div class="content">
         <h1>DEVELOP</h1>
-        <h2><span class="cyan">Phase 2</span> — Development on the AI‑ADOPT case</h2>
+        <h2><span class="cyan">Phase 2</span> - Development on the AI‑ADOPT case</h2>
         <p class="huge">Edited by the <span class="italic">Gotta cache ‘em all</span> team</p>
-        <p class="small">Alice Fornari (Law) · Edoardo Rustichini (AI) · Claudia Sammartino (Philosophy) · Luca Sinopoli
+        <p class="small" style="font-size:clamp(1rem,1.35vw,1.35rem)">Alice Fornari (Law) · Edoardo Rustichini (AI) ·
+          Claudia Sammartino (Philosophy) · Luca Sinopoli
           (AI)</p>
-        <div class="ghost">👥</div>
       </div>
       <div class="footer"><span>Università degli Studi di Firenze</span><span>01 / 20</span></div>
     </section>
-    <section class="slide" data-point="18,16">
-      <div><span class="title-pill kicker">Case AI‑ADOPT</span></div>
-      <div class="content timeline">
-        <div class="step"><b>Phase 1 — Inefficiencies</b><br>Growing number of children awaiting placement; long
-          evaluation times for candidate adopting families.</div>
-        <div class="step"><b>Phase 2 — Introduction of the AI System</b><br>GPT analysis, scoring and filtering of
-          candidates; automated matching; two-week pre-adoption period.</div>
-        <div class="step"><b>Phase 3 — Automation bias</b><br>Good results of the AI system; human oversight reduced to
-          algorithmic validation.</div>
-        <div class="step"><b>Phase 4 — Emerging issues</b><br>Unfair rankings and black-box effects.</div>
-        <div class="step"><b>Phase 5/6/7 — Crisis, accountability and restyling</b><br>Legal action, investigations, and
-          institutional choice.</div>
+    <section id="slide-02" class="slide" data-point="18,16">
+      <div style="text-align:center;margin-top:2.4rem;margin-bottom:.3rem">
+        <span class="title-pill kicker" style="font-size:clamp(2rem,2.00vw,1.2rem);padding:.58rem 1.45rem">
+          Case AI-ADOPT
+        </span>
       </div>
-      <div class="footer"><span>NOW? Gotta cache ‘em all team learning from the issues that came up and use a critical
-          approach to develop a more balanced solution that try to follows laws, ethics, and principles</span><span>02 /
-          20</span></div>
+
+      <div class="content timeline" style="font-size:1.15em">
+        <div class="step">
+          <b>Phase 1 — Inefficiencies</b><br>
+          Growing number of children awaiting placement; long evaluation times for candidate adopting families.
+        </div>
+
+        <div class="step">
+          <b>Phase 2 — Introduction of the AI System</b><br>
+          GPT analysis, scoring and filtering of candidates; automated matching; two-week pre-adoption period.
+        </div>
+
+        <div class="step">
+          <b>Phase 3 — Automation bias</b><br>
+          Good results of the AI system; human oversight reduced to algorithmic validation.
+        </div>
+
+        <div class="step">
+          <b>Phase 4 — Emerging issues</b><br>
+          Unfair rankings and black-box effects.
+        </div>
+
+        <div class="step">
+          <b>Phase 5/6/7 — Crisis, accountability and restyling</b><br>
+          Legal action, investigations, and institutional choice.
+        </div>
+      </div>
+
+      <div class="footer">
+        <span style="font-size: 1.5em">
+          NOW? Gotta cache ‘em all team learning from the issues that came up and use a critical <br>
+          approach to develop a more balanced solution that try to follows laws, ethics, and principles
+        </span>
+        <span>02 / 20</span>
+      </div>
     </section>
-    <section class="slide" data-point="39,18">
-      <div style="text-align:center"><span class="title-pill kicker">The regulatory framework</span></div>
-      <div class="content">
-        <div class="reg-diagram">
-          <div class="reg-tree">
-            <div class="reg-tree-header"><span class="h-chosen">Path we follow ✓</span><span></span><span
-                class="h-alt">Alternative branches</span></div>
+    <section id="slide-03" class="slide" data-point="39,18" style="font-size:1.15em">
+
+      <div style="text-align:center;margin-top:2.8rem;margin-bottom:.4rem">
+        <span class="title-pill kicker" style="font-size:clamp(2.2rem,2.3vw,1.4rem);padding:.6rem 1.6rem">
+          The regulatory framework
+        </span>
+      </div>
+
+      <div class="content" style="margin-top:.2rem">
+        <div class="reg-diagram" style="gap:1.2rem">
+
+          <div class="reg-tree" style="transform:scale(1.08);transform-origin:top center">
+
+            <div class="reg-tree-header" style="font-size:1.05em">
+              <span class="h-chosen">Path we follow ✓</span>
+              <span></span>
+              <span class="h-alt">Alternative branches</span>
+            </div>
+
             <div class="reg-chosen-box"><span class="check">✓</span> Adoption</div>
             <div class="reg-divider"></div>
             <div class="reg-alt-box">Fostering</div>
+
             <div class="reg-chosen-box is-current"><span class="check">✓</span> National adoption</div>
             <div class="reg-divider"></div>
             <div class="reg-alt-box">International adoption</div>
+
             <div class="reg-chosen-box"><span class="check">✓</span> Minors</div>
             <div class="reg-divider"></div>
             <div class="reg-alt-box">Adults</div>
           </div>
-          <div class="reg-laws-intro"><span class="arr">▼</span><span>Laws that govern the path we follow</span></div>
-          <ul class="reg-laws">
+
+          <!-- SPAZIO AGGIUNTIVO QUI -->
+          <div style="margin-top:5.2rem"></div>
+
+          <div class="reg-laws-intro" style="font-size:1.05em;margin-top:1.2rem">
+            <span class="arr">▼</span>
+            <span>Laws that govern the path we follow</span>
+          </div>
+
+          <ul class="reg-laws" style="font-size:1.05em;line-height:1.55;margin-top:.6rem">
             <li>L. 149/2001 - <span class="italic">"Disciplina dell'adozione e dell'affidamento dei minori"</span></li>
             <li>L. 184/1983 - <span class="italic">"Diritto del minore ad una famiglia"</span></li>
             <li>L. 104/1992 - <span class="italic">"Legge-quadro per l'assistenza, l'integrazione sociale e i diritti
@@ -819,62 +866,143 @@
                 di età"</span></li>
             <li class="no-arrow">Regional guideline</li>
           </ul>
+
         </div>
       </div>
-      <div class="footer"><span></span><span>03 / 20</span></div>
+
+      <div class="footer">
+        <span></span>
+        <span>03 / 20</span>
+      </div>
+
     </section>
-    <section class="slide" data-point="62,18">
-      <div><span class="title-pill kicker">The adoption procedure and its bottlenecks</span></div>
-      <div class="content" style="height:100%;display:flex;flex-direction:column;justify-content:center">
+    <section id="slide-04" class="slide" data-point="62,18" style="font-size:1.15em">
+
+      <div style="text-align:left;margin-top:2.8rem;margin-bottom:1.4rem">
+        <span class="title-pill kicker" style="font-size:clamp(2.2rem,2.3vw,1.4rem);padding:.6rem 1.6rem">
+          The adoption procedure and its bottlenecks
+        </span>
+      </div>
+
+      <div class="content"
+        style="height:100%;display:flex;flex-direction:column;justify-content:center;margin-top:.8rem">
         <div class="proc-diagram">
-          <div class="proc-grid"><span class="proc-col-title" style="grid-column:1;grid-row:1">Child status</span><span
-              class="proc-col-title" style="grid-column:2;grid-row:1">Couple evaluation</span>
-            <div class="proc-node" style="grid-column:1;grid-row:2">Reporting and verification of abandonment</div>
-            <div class="proc-node" style="grid-column:2;grid-row:2">Application for adoption<br><b>3 years max</b></div>
-            <span class="proc-arrow-v" style="grid-column:1;grid-row:3">↓</span><span class="proc-arrow-v"
-              style="grid-column:2;grid-row:3">↓</span>
-            <div class="proc-node" style="grid-column:1;grid-row:4">Declaration of adoptability</div>
-            <div class="proc-node" style="grid-column:2;grid-row:4">Assessment of couples<br><b>120 days</b></div>
-            <div class="proc-side-stack" style="grid-column:3;grid-row:4">
+          <div class="proc-grid">
+
+            <span class="proc-col-title" style="grid-column:1;grid-row:1">Child status</span>
+            <span class="proc-col-title" style="grid-column:2;grid-row:1">Couple evaluation</span>
+
+            <div class="proc-node" style="grid-column:1;grid-row:2">
+              Reporting and verification of abandonment
+            </div>
+
+            <div class="proc-node" style="grid-column:2;grid-row:2">
+              Application for adoption<br><b>3 years max</b>
+            </div>
+
+            <span class="proc-arrow-v" style="grid-column:1;grid-row:3">↓</span>
+            <span class="proc-arrow-v" style="grid-column:2;grid-row:3">↓</span>
+
+            <div class="proc-node" style="grid-column:1;grid-row:4">
+              Declaration of adoptability
+            </div>
+
+            <div class="proc-node" style="grid-column:2;grid-row:4">
+              Assessment of couples<br><b>120 days</b>
+            </div>
+
+            <div class="proc-side-stack" style="grid-column:3;grid-row:3 / 5;align-self:start;margin-top:.1rem">
               <div class="card proc-note">Interviews with social workers and home visits must be organized.</div>
               <div class="card proc-note">Social Services and Local Health Authorities are understaffed.</div>
             </div>
-            <div class="proc-merge" style="grid-column:1/3;grid-row:5"><span class="ml"></span><span
-                class="mr"></span><span class="mh"></span><span class="mc"></span></div>
-            <div class="proc-node proc-node-merge" style="grid-column:1/3;grid-row:6">Matching and pre-adoptive
-              placement<br><b>365 days</b></div>
-            <div class="card proc-note proc-note-side" style="grid-column:3;grid-row:6">Juvenile Courts with overbooked
-              schedules must analyze reports.</div><span class="proc-arrow-v"
-              style="grid-column:1/3;grid-row:7">↓</span>
-            <div class="proc-node proc-node-final" style="grid-column:1/3;grid-row:8">Finalization of adoption</div>
+
+            <div class="proc-merge" style="grid-column:1/3;grid-row:5">
+              <span class="ml"></span>
+              <span class="mr"></span>
+              <span class="mh"></span>
+              <span class="mc"></span>
+            </div>
+
+            <div class="proc-node proc-node-merge" style="grid-column:1/3;grid-row:6">
+              Matching and pre-adoptive placement<br><b>365 days</b>
+            </div>
+
+            <div class="card proc-note proc-note-side" style="grid-column:3;grid-row:6">
+              Juvenile Courts with overbooked schedules must analyze reports.
+            </div>
+
+            <span class="proc-arrow-v" style="grid-column:1/3;grid-row:7">↓</span>
+
+            <div class="proc-node proc-node-final" style="grid-column:1/3;grid-row:8">
+              Finalization of adoption
+            </div>
+
           </div>
         </div>
+
         <div style="flex:1"></div>
       </div>
-      <div class="footer"><span></span><span>04 / 20</span></div>
-    </section>
-    <section class="slide" data-point="78,32">
-      <div><span class="title-pill kicker">The positive bottleneck</span></div>
-      <div class="content stats">
-        <div class="card">
-          <h3>Families available for adoption</h3>
-          <p class="huge"><b>2003:</b> 13,276<br><b>2007:</b> 15,810</p>
-        </div>
-        <div class="funnel">⌬</div>
-        <div class="card">
-          <h3>National adoptions</h3>
-          <p class="huge"><b>2003:</b> 1,575<br><b>2007:</b> 1,815</p>
-        </div>
-        <div class="card" style="grid-column:1/-1">
-          <p class="quote">“Initial problem: pressure due to a growing number of children awaiting placement.”</p>
-          <p>Ratio of adoptable children to available couples: <b class="accent">1 to 8–10</b>. Many couples see their
-            three-year eligibility expire without any match.</p>
-          <p class="small">ISTAT, Dossier famiglia 2010, pp. 29–33.</p>
-        </div>
+
+      <div class="footer">
+        <span></span>
+        <span>04 / 20</span>
       </div>
-      <div class="footer"><span></span><span>05 / 20</span></div>
+
     </section>
-    <section class="slide" data-point="82,52">
+    <section id="slide-05" class="slide" data-point="78,32" style="font-size:1.15em">
+
+      <div style="text-align:center;margin-top:2.8rem;margin-bottom:1.2rem">
+        <span class="title-pill kicker" style="font-size:clamp(2.2rem,2.3vw,1.4rem);padding:.6rem 1.6rem">
+          The positive bottleneck
+        </span>
+      </div>
+
+      <div class="content stats" style="gap:1.2rem">
+
+        <div class="card">
+          <h3 style="font-size:1.2em">Families available for adoption</h3>
+          <p class="huge" style="font-size:1.5em">
+            <b>2003:</b> <span class="accent">13276</span><br>
+            <b>2007:</b> <span class="accent">15810</span>
+          </p>
+        </div>
+
+        <div style="display:grid;place-items:center">
+          <img src="assets/collo di bottiglia.png" alt="Collo di bottiglia"
+            style="width:100%;max-width:190px;height:auto" />
+        </div>
+
+        <div class="card">
+          <h3 style="font-size:1.2em">National adoptions</h3>
+          <p class="huge" style="font-size:1.5em">
+            <b>2003:</b> <span class="accent">1575</span><br>
+            <b>2007:</b> <span class="accent">1815</span>
+          </p>
+        </div>
+
+        <div class="card" style="grid-column:1/-1">
+          <p class="quote" style="font-size:1.05em">
+            “Initial problem: pressure due to a growing number of children awaiting placement.”
+          </p>
+          <p style="font-size:1.05em">
+            Ratio of adoptable children to available couples:
+            <b class="accent">1 to 8–10</b>.
+            Many couples see their three-year eligibility expire without any match.
+          </p>
+          <p class="small" style="font-size:.9em">
+            ISTAT, Dossier famiglia 2010, pp. 29–33.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="footer">
+        <span></span>
+        <span>05 / 20</span>
+      </div>
+
+    </section>
+    <section id="slide-06" class="slide" data-point="82,52">
       <div></div>
       <div class="content cols2 grid" style="grid-template-columns:1.3fr .9fr;align-items:center">
         <div style="display:grid;place-items:center;height:100%"><img src="assets/lady-justice.png"
@@ -884,80 +1012,119 @@
         <div style="height:100%;display:flex;flex-direction:column;justify-content:center">
           <h2>Legal concerns</h2>
           <p class="huge"><span class="accent">3</span> main issues can be identified, with particular emphasis on the
-            <span class="accent">erosion of the best interests of the child principle.</span></p>
+            <span class="accent">erosion of the best interests of the child principle.</span>
+          </p>
         </div>
       </div>
       <div class="footer"><span></span><span>06 / 20</span></div>
     </section>
-    <section class="slide" data-point="69,70">
-      <div><span class="title-pill kicker">1. Scoring system</span></div>
-      <div class="content cols2 grid" style="align-items:center;grid-template-columns:1fr 1fr">
-        <div>
-          <p class="huge">Can exclusion without human oversight amount to a form of social scoring?</p>
-          <p class="huge accent"><b>Art. 5(1)(c), AI Act</b></p><span class="ask">ASK 1</span> <span class="ask">ASK
-            5</span>
+
+
+    <section id="slide-07" class="slide" data-point="69,70">
+
+      <div style="text-align:center;margin-top:2.4rem;margin-bottom:.3rem">
+        <span class="title-pill kicker" style="font-size:clamp(2rem,2.00vw,1.2rem);padding:.58rem 1.45rem">
+          1. Scoring system
+        </span>
+        <div class="content cols2 grid" style="align-items:center;grid-template-columns:1fr 1fr">
+          <div>
+            <p class="huge">Can exclusion without human oversight amount to a form of social scoring?</p>
+            <p class="huge accent"><b>Art. 5(1)(c), AI Act</b></p><span class="ask">ASK 1</span> <span class="ask">ASK
+              5</span>
+          </div>
+          <div style="display:grid;place-items:center">
+
+            <div style="display:grid;place-items:center"><img src="assets/bilancia.png" alt="Thinking face"
+                style="width:100%;max-width:620px;height:auto;max-height:78vh;mix-blend-mode:screen" /></div>
+
+          </div>
         </div>
-        <div style="display:grid;place-items:center"><svg viewBox="0 0 400 500" role="img"
-            aria-label="Scales of justice"
-            style="width:100%;max-width:520px;height:auto;max-height:74vh;filter:drop-shadow(0 0 32px rgba(255,255,255,.32)) drop-shadow(0 0 80px rgba(158,231,239,.18))">
-            <g fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="9">
-              <circle cx="200" cy="40" r="11" fill="#ffffff" stroke="none" />
-              <line x1="200" y1="51" x2="200" y2="425" />
-              <line x1="58" y1="112" x2="342" y2="112" />
-              <line x1="58" y1="112" x2="28" y2="226" stroke-width="5" />
-              <line x1="58" y1="112" x2="118" y2="226" stroke-width="5" />
-              <line x1="342" y1="112" x2="282" y2="226" stroke-width="5" />
-              <line x1="342" y1="112" x2="372" y2="226" stroke-width="5" />
-              <path d="M18 226 L128 226 Q73 300 18 226 Z" fill="rgba(255,255,255,.08)" />
-              <path d="M272 226 L382 226 Q327 300 272 226 Z" fill="rgba(255,255,255,.08)" />
-              <line x1="160" y1="425" x2="240" y2="425" />
-              <line x1="168" y1="425" x2="132" y2="470" stroke-width="7" />
-              <line x1="232" y1="425" x2="268" y2="470" stroke-width="7" />
-              <path d="M120 472 L280 472" stroke-width="12" />
-            </g>
-          </svg></div>
-      </div>
-      <div class="footer"><span></span><span>07 / 20</span></div>
+        <div class="footer"><span></span><span>07 / 20</span></div>
     </section>
-    <section class="slide" data-point="47,78">
-      <div><span class="title-pill kicker">2. Reuse of sensitive data</span></div>
-      <div class="content" style="display:grid;place-items:center;text-align:center">
-        <div style="max-width:1100px;width:100%">
-          <h2 style="font-size:clamp(2.6rem,6.4vw,6.4rem);margin:0 0 .6em">Reuse of sensitive data</h2>
+
+
+    <section id="slide-08" class="slide" data-point="47,78">
+
+      <div style="text-align:center;margin-top:2.8rem;margin-bottom:1.2rem">
+        <span class="title-pill kicker" style="font-size:clamp(2rem,2.00vw,1.2rem);padding:.58rem 1.45rem">
+          2. Reuse of sensitive data
+        </span>
+      </div>
+
+      <div class="content cols2 grid" style="align-items:center;grid-template-columns:1fr 1fr">
+
+        <!-- TESTO CENTRATO COME SLIDE 09 -->
+        <div style="display:grid;place-items:center;text-align:center">
           <ul class="huge"
             style="list-style:none;padding:0;margin:0;display:grid;gap:1rem;font-size:clamp(1.6rem,3.2vw,3.2rem);line-height:1.18">
+
             <li>Invalid consent</li>
-            <li><span class="accent">GDPR compliance issues</span></li>
+
+            <li>
+              <span class="accent"><b>GDPR compliance issues</b></span>
+            </li>
+
             <li>Technical risks</li>
+
           </ul>
         </div>
-      </div>
-      <div class="footer"><span></span><span>08 / 20</span></div>
-    </section>
-    <section class="slide" data-point="25,66">
-      <div><span class="title-pill kicker">3. Discrimination caused by proxy variables</span></div>
-      <div class="content" style="display:grid;place-items:center;text-align:center">
-        <div style="max-width:1100px;width:100%">
-          <h2 style="font-size:clamp(2.6rem,6.4vw,6.4rem);margin:0 0 .6em">Discrimination caused by proxy variables</h2>
-          <ul class="huge"
-            style="list-style:none;padding:0;margin:0 0 1.2rem;display:grid;gap:1rem;font-size:clamp(1.6rem,3.2vw,3.2rem);line-height:1.18">
-            <li><span class="accent">Postal code</span> — similar to COMPAS, 2016</li>
-            <li>Dialect-based discrimination</li>
-            <li>“Black box” effects</li>
-          </ul><span class="ask">ASK 8</span>
+
+        <!-- IMMAGINE -->
+        <div style="display:grid;place-items:center">
+          <img src="assets/ladysolenne.png" alt="Thinking face"
+            style="width:100%;max-width:600px;height:auto;max-height:75vh;mix-blend-mode:screen" />
         </div>
+
       </div>
-      <div class="footer"><span></span><span>09 /
-          20</span></div>
+
+      <div class="footer">
+        <span></span>
+        <span>08 / 20</span>
+      </div>
+
     </section>
-    <section class="slide" data-point="13,43">
+
+
+    <section id="slide-09" class="slide" data-point="25,66">
+
+      <div style="text-align:center;margin-top:2.4rem;margin-bottom:.3rem">
+        <span class="title-pill kicker" style="font-size:clamp(2rem,2.00vw,1.2rem);padding:.58rem 1.45rem">
+          3. Discrimination caused by proxy variables
+        </span>
+        <div class="content cols2 grid" style="align-items:center;grid-template-columns:1fr 1fr">
+          <div class="content" style="display:grid;place-items:center;text-align:center">
+            <div style="max-width:1100px;width:100%">
+              <ul class="huge"
+                style="list-style:none;padding:0;margin:0 0 1.2rem;display:grid;gap:1rem;font-size:clamp(1.6rem,3.2vw,3.2rem);line-height:1.18">
+                <li><span class="accent">Postal code</span> - similar to COMPAS, 2016</li>
+                <li>Dialect-based discrimination</li>
+                <li>“Black box” effects</li>
+              </ul>
+              <span class="ask">ASK 8</span>
+            </div>
+          </div>
+
+          <div style="display:grid;place-items:center">
+
+            <div style="display:grid;place-items:center"><img src="assets/famigliafelice.png" alt="Thinking face"
+                style="width:100%;max-width:620px;height:auto;max-height:78vh;mix-blend-mode:screen" /></div>
+
+          </div>
+        </div>
+        <div class="footer"><span></span><span>09 / 20</span></div>
+    </section>
+
+
+    </section>
+    <section id="slide-10" class="slide" data-point="13,43">
       <div></div>
       <div class="content cols2 grid" style="grid-template-columns:1.15fr 1fr;align-items:center">
-        <div style="display:grid;place-items:center"><img src="assets/ominochepensa.png" alt="Thinking face" style="width:100%;max-width:620px;height:auto;max-height:78vh;mix-blend-mode:screen" /></div>
+        <div style="display:grid;place-items:center"><img src="assets/pensatore.png" alt="Thinking face"
+            style="width:100%;max-width:620px;height:auto;max-height:78vh;mix-blend-mode:screen" /></div>
         <div>
           <h2>Ethical issues</h2>
           <ul class="huge">
-            <li><span class="accent">Adoption is not a technical allocation problem</span></li>
+            <li><span class="accent">Adoption is <b>not</b> a technical allocation problem</span></li>
             <li>From support to automation</li>
             <li>Quantification and reductionism</li>
             <li>Best interest and fairness</li>
@@ -968,52 +1135,91 @@
       </div>
       <div class="footer"><span></span><span>10 / 20</span></div>
     </section>
-    <section class="slide" data-point="24,21">
+
+
+    <section id="slide-11" class="slide" data-point="24,21">
+
       <div></div>
-      <div class="content cols2 grid">
-        <div class="symbol">🤝</div>
+
+      <div class="content cols2 grid" style="align-items:center;grid-template-columns:1fr 1fr">
+
+        <!-- IMMAGINE PLACEHOLDER -->
+        <div style="display:grid;place-items:center">
+          <img src="assets/mani.png" alt="Placeholder image"
+            style="width:100%;max-width:600px;height:auto;max-height:75vh;object-fit:contain" />
+        </div>
+
+        <!-- TESTO -->
         <div>
           <h2><span class="accent">Pharmakon</span> nature of AI</h2>
-          <h3>From a logic of optimisation to a logic of care</h3>
-          <p class="huge">A care-based approach does not aim to perfect the system, but to protect the irreducible
-            singularity of the child and the relationships that surround them.</p><span class="ask">ASK 7</span>
-        </div>
-      </div>
-      <div class="footer"><span></span><span>11 / 20</span></div>
-    </section>
-    <section class="slide" data-point="51,31">
-      <div><span class="kicker accent">About principles</span></div>
-      <div class="content cards">
-        <div class="card">
-          <h3>Dignity</h3>
-          <p>Individuals risk being treated as calculable profiles rather than singular, relational persons.</p>
-        </div>
-        <div class="card">
-          <h3>Responsibility</h3>
-          <p>Accountability may be dispersed across professionals, institutions, and the model itself.</p>
-        </div>
-        <div class="card">
-          <h3>Fairness</h3>
-          <p>Proxies such as postal code, socioeconomic status, or linguistic style may generate bias and indirect
-            discrimination.</p>
-        </div>
-        <div class="card">
-          <h3>Procedural autonomy</h3>
-          <p>Poorly informed families may be unable to understand or challenge the role of ranking.</p>
-        </div>
-        <div class="card">
-          <h3>Transparency</h3>
-          <p>The system may become a black box, obscuring the reasons behind exclusion or selection.</p>
-        </div>
-        <div class="card">
-          <h3>Beneficence / Non-maleficence</h3>
-          <p>Faster procedures may reduce delays, but also cause harm through mistaken matches or reductive assessments.
+          <h3><i>From a logic of optimisation to a logic of care</i></h3>
+          <p class="huge">
+            A care-based approach does not aim to perfect the system, but to protect the irreducible
+            singularity of the child and the relationships that surround them.
           </p>
+          <span class="ask">ASK 7</span>
         </div>
+
       </div>
-      <div class="footer"><span></span><span>12 / 20</span></div>
+
+      <div class="footer">
+        <span></span>
+        <span>11 / 20</span>
+      </div>
+
     </section>
-    <section class="slide" data-point="73,39">
+
+ <section id="slide-12" class="slide" data-point="51,31">
+
+  <!-- TITOLO COME PHARMAKON -->
+  <div style="text-align:center;margin-top:2.8rem;margin-bottom:1.4rem">
+    <h2><span class="accent">About principles </span></h2>
+  </div>
+
+  <!-- CARD 3x2 -->
+  <div class="content cards"
+       style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;align-items:stretch">
+
+    <div class="card">
+      <h3>Dignity</h3>
+      <p>Individuals risk being treated as calculable profiles rather than singular, relational persons.</p>
+    </div>
+
+    <div class="card">
+      <h3>Responsibility</h3>
+      <p>Accountability may be dispersed across professionals, institutions, and the model itself.</p>
+    </div>
+
+    <div class="card">
+      <h3>Fairness</h3>
+      <p>Proxies such as postal code, socioeconomic status, or linguistic style may generate bias and indirect discrimination.</p>
+    </div>
+
+    <div class="card">
+      <h3>Procedural autonomy</h3>
+      <p>Poorly informed families may be unable to understand or challenge the role of ranking.</p>
+    </div>
+
+    <div class="card">
+      <h3>Transparency</h3>
+      <p>The system may become a black box, obscuring the reasons behind exclusion or selection.</p>
+    </div>
+
+    <div class="card">
+      <h3>Beneficence / Non-maleficence</h3>
+      <p>Faster procedures may reduce delays, but also cause harm through mistaken matches or reductive assessments.</p>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <span></span>
+    <span>12 / 20</span>
+  </div>
+
+</section>
+
+<section id="slide-13" class="slide" data-point="73,39">
       <div></div>
       <div class="content">
         <h2>Ethical trade-off</h2>
@@ -1041,7 +1247,7 @@
       </div>
       <div class="footer"><span></span><span>13 / 20</span></div>
     </section>
-    <section class="slide" data-point="85,58">
+    <section id="slide-14" class="slide" data-point="85,58">
       <div></div>
       <div class="content cols2 grid">
         <div>
@@ -1049,11 +1255,11 @@
           <p class="huge">NLP is not good for scoring, but it can be useful for extracting, organizing, and comparing
             information under human supervision.</p>
         </div>
-        <div class="symbol">🧑‍💻</div>
+        <div class="symbol"></div>
       </div>
       <div class="footer"><span></span><span>14 / 20</span></div>
     </section>
-    <section class="slide" data-point="68,75">
+    <section id="slide-15" class="slide" data-point="68,75">
       <div></div>
       <div class="content">
         <h2>New design</h2>
@@ -1075,7 +1281,7 @@
       <div class="footer"><span></span><span>15 /
           20</span></div>
     </section>
-    <section class="slide" data-point="44,62">
+    <section id="slide-16" class="slide" data-point="44,62">
       <div></div>
       <div class="content cols2 grid">
         <div>
@@ -1083,11 +1289,11 @@
           <p class="huge">At this stage there is no AI: only deterministic algorithms. The filter checks legal
             eligibility and hard constraints before any AI-assisted analysis is used.</p>
         </div>
-        <div class="symbol">🧬</div>
+        <div class="symbol"></div>
       </div>
       <div class="footer"><span></span><span>16 / 20</span></div>
     </section>
-    <section class="slide" data-point="22,82">
+    <section id="slide-17" class="slide" data-point="22,82">
       <div></div>
       <div class="content cols2 grid">
         <div>
@@ -1096,11 +1302,11 @@
             database supports retrieval across cases without turning qualitative material into a final score.</p><span
             class="ask">ASK 2</span>
         </div>
-        <div class="symbol">🗂️</div>
+        <div class="symbol"></div>
       </div>
       <div class="footer"><span></span><span>17 / 20</span></div>
     </section>
-    <section class="slide" data-point="10,61">
+    <section id="slide-18" class="slide" data-point="10,61">
       <div></div>
       <div class="content cols2 grid">
         <div>
@@ -1108,11 +1314,11 @@
           <p class="huge">The system helps professionals explore similarities, distances, and relevant patterns.
             Visualization is used as an interpretive aid, not as a ranking machine.</p>
         </div>
-        <div class="symbol">📊</div>
+        <div class="symbol"></div>
       </div>
       <div class="footer"><span></span><span>18 / 20</span></div>
     </section>
-    <section class="slide" data-point="39,38">
+    <section id="slide-19" class="slide" data-point="39,38">
       <div></div>
       <div class="content cols2 grid">
         <div>
@@ -1120,11 +1326,11 @@
           <p class="huge">Human-in-the-loop means that social workers and the Juvenile Court remain responsible for
             interpretation, justification, and final decision-making.</p>
         </div>
-        <div class="symbol">🦾</div>
+        <div class="symbol"></div>
       </div>
       <div class="footer"><span></span><span>19 / 20</span></div>
     </section>
-    <section class="slide" data-point="76,15">
+    <section id="slide-20" class="slide" data-point="76,15">
       <div><span class="title-pill kicker accent">The asks of the deployers</span></div>
       <div class="content questions">
         <div class="q"><strong>ASK ONE.</strong> Given that the system uses a ‘threshold’, how can you ensure that this
